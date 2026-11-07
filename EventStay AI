@@ -1,0 +1,26 @@
+
+<h3>EventStay AI — Build 1 Prototype</h3>
+
+<p>
+  An interactive hotel price comparison prototype that
+  helps travelers explore how local events may affect
+  hotel rates and discover more affordable travel dates.
+</p>
+
+<p>
+  The prototype currently supports New York City,
+  Chicago, and Las Vegas using illustrative event
+  and hotel pricing data.
+</p>
+
+<img
+  src="images/prototype.png"
+  alt="EventStay AI Prototype"
+  style="width:100%; max-width:800px; border-radius:12px;"
+/>
+
+<p>
+  <a href="../prototype/index.html">
+    Try the Interactive Prototype
+  </a>
+</p>
