@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>[Your Product Name] · Building with AI (Fall 2026)</title>
+  <title>EventStay AI · Building with AI (Fall 2026)</title>
 
   <!-- Week 1: create your PostHog account only.
        Build 2: paste your project's current PostHog web snippet here,
@@ -144,8 +144,10 @@
     <!-- HERO / PRODUCT PITCH -->
     <header>
       <span class="eyebrow">NYU Stern · Building with AI · Fall 2026</span>
-      <h1>[Your Product Name]</h1>
-      <p class="tagline">[One clear sentence: Who is this for, and what painful job does it do for them?]</p>
+      <h1>EventStay AI</h1>
+      <p class="tagline">Smarter hotel pricing through event intelligence.
+  Helping travelers find better hotel rates and hotel revenue
+  teams make data-driven pricing decisions using local event data.</p>
       <div class="cta-row">
         <a class="btn" href="#live-demo" onclick="window.posthog && posthog.capture('clicked_try_product')">See the Product →</a>
         <a class="btn btn-secondary" href="#prd">Read the Living PRD</a>
@@ -157,12 +159,35 @@
     <section id="live-demo">
       <h2>Product Showcase (Prototype / Live App / 2-Min Video)</h2>
       <p>
-        <strong>Current Status:</strong> [Build 1: local prototype / Builds 2–4: local app / Build 5: cloud app]<br />
-        <strong>Demo:</strong> [Add a screenshot or GIF now; add the live cloud app URL in Build 5.]
+        <strong>Current Status:</strong>  Build 1 - Interactive Prototype<br />
       </p>
+       <p>
+    EventStay AI is a hotel pricing intelligence platform
+    that helps travelers understand how local events,
+    conventions, and festivals may influence hotel prices.
+  </p>
+  <p>
+    The initial prototype allows users to select a destination,
+    compare sample hotel prices, view event information,
+    and explore alternative travel dates.
+  </p>
       <p class="meta">
-        Ask your coding agent to embed a screenshot or GIF of your local prototype for Build 1. Keep this evidence current, then add your cloud app link and two-minute video in Build 5.
+        The initial prototype uses illustrative event and hotel
+    pricing data, not live booking rates or AI predictions.
       </p>
+      <h3>EventStay AI Prototype</h3>
+
+  <img
+    src="images/prototype.png"
+    alt="EventStay AI Prototype Screenshot"
+    style="width:100%; border-radius:12px;"
+  />
+
+  <p>
+    <a class="btn" href="prototype/index.html">
+      Try the Interactive Prototype
+    </a>
+  </p>
     </section>
 
     <!-- LIVING PRD (Updated every week!) -->
@@ -171,22 +196,91 @@
       <p class="meta">Updated every week as we test with real users and learn what works.</p>
 
       <h3>1. Target User & The Job to Be Done</h3>
-      <p><strong>Who is this for?</strong> [Name a specific, reachable person or role you have direct access to.]</p>
-      <p><strong>The painful "Before" workflow:</strong> [How do they do this today, and why is it slow, manual, or broken?]</p>
-      <p><strong>The "After" workflow with this product:</strong> [What does your tool do for them in one sitting?]</p>
+     <h3>1. Target User & The Job to Be Done</h3>
 
-      <h3>2. Scope & Explicit Non-Goals</h3>
-      <ul>
-        <li><strong>In Scope (Core Workflow):</strong> [The 1 main workflow this product does reliably]</li>
-        <li><strong>Out of Scope #1:</strong> [Feature you are deliberately NOT building in 6 weeks]</li>
-        <li><strong>Out of Scope #2:</strong> [Feature you are deliberately NOT building in 6 weeks]</li>
-        <li><strong>Out of Scope #3:</strong> [Feature you are deliberately NOT building in 6 weeks]</li>
-      </ul>
+<p><strong>Who is this for?</strong>
+EventStay AI initially targets leisure travelers,
+including college students and young professionals,
+who want to find affordable hotel accommodations.
+Potential reachable users include friends and
+classmates who regularly travel and book hotels.
+
+The long-term vision also includes hotel revenue
+managers who make daily room pricing decisions.
+</p>
+
+<p><strong>The painful "Before" workflow:</strong>
+Travelers often compare hotel prices across multiple
+booking platforms without understanding why prices
+increase significantly during certain periods.
+
+Major conventions, concerts, festivals, and sporting
+events can increase local hotel demand and prices.
+Travelers must manually research these events and
+compare different hotels and travel dates.
+
+Hotel revenue managers also spend time reviewing
+local events, competitor pricing, historical booking
+data, and spreadsheets when adjusting room rates.
+</p>
+
+<p><strong>The "After" workflow with this product:</strong>
+Travelers enter their destination and travel dates
+into EventStay AI.
+
+The platform displays relevant local events, compares
+hotel prices, and highlights potentially cheaper
+alternative travel dates.
+
+In the future, hotel revenue managers will also
+be able to use AI-assisted demand analysis and
+room rate recommendations to support pricing decisions.
+</p>
+
+<h3>2. Scope & Explicit Non-Goals</h3>
+
+<ul>
+  <li>
+    <strong>In Scope (Core Workflow):</strong>
+    A traveler selects a destination and travel dates,
+    views nearby events, compares sample hotel prices,
+    and identifies more affordable alternative dates.
+  </li>
+
+  <li>
+    <strong>Out of Scope #1:</strong>
+    Direct hotel reservations and payment processing.
+  </li>
+
+  <li>
+    <strong>Out of Scope #2:</strong>
+    Real-time integration with every hotel booking
+    platform and guaranteed live hotel prices.
+  </li>
+
+  <li>
+    <strong>Out of Scope #3:</strong>
+    Automated hotel pricing changes and direct
+    integration with hotel property management systems.
+  </li>
+</ul>
 
       <h3>3. How It Works Under the Hood & Riskiest Assumption (Week 2+)</h3>
-      <p><strong>Riskiest Assumption:</strong> [What is the #1 technical or user risk that could sink this product?]</p>
-      <p><strong>Simple Architecture:</strong> [User Input] → [Your App / Server] → [AI Model / Tool] → [Output]</p>
+      
+<p><strong>Riskiest Assumption:</strong>
+Local event data can provide useful insights into
+hotel price fluctuations and help travelers make
+better booking decisions. The initial prototype
+will test whether travelers find event-aware price
+comparisons valuable.
+</p>
 
+<p><strong>Simple Architecture:</strong>
+User selects destination and dates
+&rarr; Application identifies relevant sample events
+&rarr; Hotel pricing model calculates illustrative rates
+&rarr; User compares hotels and alternative dates.
+</p>
       <h3>4. Unit Economics & Analytics Snapshot (Updated Weekly)</h3>
       <div class="grid-2">
         <div class="stat-box">
@@ -209,19 +303,42 @@
     </section>
 
     <!-- WEEKLY BUILD LOG (Updated at least twice a week via Git commits) -->
-    <section id="build-log">
-      <h2>Weekly Build Log</h2>
-      <p class="meta">Build on at least two separate days each week outside class, including the November 3 break. Push commits and log actual progress, failures, PRD changes, costs, and hours here. All build deadlines are noon, New York time.</p>
+    
+<div class="log-entry">
+  <h3>Build 1 · Intent.md & Throwaway Prototype (Due Nov 9)</h3>
 
-      <div class="log-entry">
-        <h3>Build 1 · Intent.md & Throwaway Prototype (Due Nov 9)</h3>
-        <ul>
-          <li><strong>What shipped:</strong> [What you actually built; link your local prototype screenshot or GIF above.]</li>
-          <li><strong>Things learned with AI:</strong> [What you learned from AI practice and Terminus Episodes 1 and 2.]</li>
-          <li><strong>What broke / changed in PRD:</strong> [Fill in]</li>
-          <li><strong>Cost & time this week:</strong> $[0.00] · [0] hours</li>
-        </ul>
-      </div>
+  <ul>
+    <li>
+      <strong>What shipped:</strong>
+      Created the EventStay AI product concept,
+      published a GitHub Pages website,
+      drafted PRD v1, and developed an initial
+      interactive hotel price comparison prototype.
+    </li>
+
+    <li>
+      <strong>Things learned with AI:</strong>
+      Explored how local events can influence
+      hotel pricing and how event intelligence
+      could support better booking decisions.
+      [Add actual learnings from Terminus Episodes 1 and 2.]
+    </li>
+
+    <li>
+      <strong>What broke / changed in PRD:</strong>
+      Initially planned to serve both travelers
+      and hotel revenue management teams.
+      Narrowed the initial prototype to a
+      traveler-facing hotel comparison tool
+      to focus on one core workflow.
+    </li>
+
+    <li>
+      <strong>Cost & time this week:</strong>
+      [Enter actual spending] · [Enter actual hours]
+    </li>
+  </ul>
+</div>
 
       <div class="log-entry">
         <h3>Build 2 · Smallest Local Version & PostHog (Due Nov 16)</h3>
