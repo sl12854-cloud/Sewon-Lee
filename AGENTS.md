@@ -3,9 +3,18 @@
 
 ## Project Overview
 
-EventStay AI is a hotel pricing intelligence platform
-that helps travelers explore local events and compare
-illustrative hotel prices across different travel dates.
+EventStay AI helps travelers understand how local events
+may influence hotel prices and compare accommodation
+options across different travel dates.
+
+## Primary User
+
+Travelers searching for affordable hotel accommodations.
+
+## Core Workflow
+
+Select destination and dates → View local events →
+Compare illustrative hotel prices → Explore alternative dates.
 
 ## Tech Stack
 
@@ -18,42 +27,40 @@ illustrative hotel prices across different travel dates.
 
 ## Project Structure
 
-- docs/index.html: Public Product Page
-- docs/prototype/index.html: Interactive web application
+- docs/index.html: Product Page and PRD
+- docs/prototype/index.html: Interactive application
 - docs/prototype.png: Prototype screenshot
-- AGENTS.md: Setup and deployment instructions
+- AGENTS.md: Project instructions
 
 ## Run Locally
 
-1. Download or clone the repository.
-2. Open docs/prototype/index.html in a web browser.
-3. Select a destination and travel dates.
-4. Compare hotel prices.
-5. Test the real NYC Events API connection.
+1. Clone or download the repository.
+2. Open docs/prototype/index.html in Chrome or Safari.
+3. Select a city and travel dates.
+4. Click Compare stays.
+5. Test the NYC Open Data API if available.
 
-Note: Local file security restrictions may affect
-API requests. Use a local HTTP server if necessary.
-
-## Deployment Instructions
+## Deployment
 
 1. Open the GitHub repository.
 2. Update docs/prototype/index.html.
 3. Commit changes to the main branch.
-4. Open Settings > Pages.
-5. Confirm deployment from main /docs.
-6. Wait for GitHub Pages deployment to finish.
-7. Open the public prototype URL.
-8. Test the core workflow on a mobile device.
+4. Go to Settings > Pages.
+5. Set Source to Deploy from a branch.
+6. Select main and /docs.
+7. Save and wait for deployment.
+8. Visit the public URL and test the application.
 
-## Security
+## Engineering Rules
 
-- Never commit secret API keys.
-- Do not store personal information.
-- Keep sample prices clearly labeled.
-- Verify external API calls after deployment.
+- Never expose API keys or private credentials.
+- Keep hotel prices labeled as illustrative data.
+- Test the application after each deployment.
+- Keep changes small and easy to review.
+- Document known limitations and failures.
 
-## Known Limitations
+## Limitations
 
-Hotel prices are illustrative, not live booking rates.
-NYC Open Data covers permitted events, not every event.
-The application does not support hotel reservations.
+Hotel prices are illustrative rather than real-time.
+NYC Open Data does not include every local event.
+The application does not support hotel booking or payments.
