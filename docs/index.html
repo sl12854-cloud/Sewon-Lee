@@ -150,9 +150,9 @@
     <header>
       <span class="eyebrow">NYU Stern · Building with AI · Fall 2026</span>
       <h1>EventStay AI</h1>
-      <p class="tagline">Smarter hotel pricing through event intelligence.
-  Helping travelers find better hotel rates and hotel revenue
-  teams make data-driven pricing decisions using local event data.</p>
+      <p class="tagline">Find the best week to travel: fewer crowds, lower cost.
+  EventStay compares crowd levels, festivals, public holidays, weather and
+  hotel price seasons day by day, then recommends the best dates for your trip.</p>
       <div class="cta-row">
         <a class="btn" href="#live-demo" onclick="window.posthog && posthog.capture('clicked_try_product')">See the Product →</a>
         <a class="btn btn-secondary" href="#prd">Read the Living PRD</a>
@@ -164,32 +164,35 @@
     <section id="live-demo">
       <h2>Product Showcase (Prototype / Live App / 2-Min Video)</h2>
       <p>
-        <strong>Current Status:</strong>  Build 1 - Interactive Prototype<br />
+        <strong>Current Status:</strong> Build 3 · Best travel dates finder (live public data)<br />
       </p>
-       <p>
-    EventStay AI is a hotel pricing intelligence platform
-    that helps travelers understand how local events,
-    conventions, and festivals may influence hotel prices.
-  </p>
-  <p>
-    The initial prototype allows users to select a destination,
-    compare sample hotel prices, view event information,
-    and explore alternative travel dates.
-  </p>
+      <p>
+        EventStay AI helps leisure travelers with flexible dates choose <strong>when</strong> to go.
+        Pick a destination (Ibiza, Seoul or New York City), a month, a trip length, your home airport
+        and what matters most: balanced, lowest cost, fewest crowds or catching a festival.
+      </p>
+      <p>
+        EventStay ranks every check-in date in that month and shows the top three with the reasons:
+        crowd level, hotel price level against the yearly average, expected weather, and festivals or
+        holidays the trip overlaps or avoids. A 12-month crowd chart and a day-by-day crowd calendar
+        make busy and quiet periods easy to see. Each recommendation opens Google Flights and
+        Booking.com with the dates already filled in.
+      </p>
       <p class="meta">
-        The initial prototype uses illustrative event and hotel
-    pricing data, not live booking rates or AI predictions.
+        Weather, public holidays and NYC event permits are live public data. Crowd and hotel price
+        levels are EventStay estimates, and recurring festival dates are marked "Typical dates". The
+        page doesn't show live flight or hotel prices yet.
       </p>
       <h3>EventStay AI Prototype</h3>
 
   <img
-    src="prototype.png"
-    alt="EventStay AI Prototype Screenshot"
-    style="width:100%; border-radius:12px;"
+    src="prototype-build3.jpg"
+    alt="EventStay AI best travel dates finder showing the top three recommended stays with crowd level, hotel price level and weather"
+    style="width:100%; border-radius:12px; border:1px solid var(--border);"
   />
 
   <p>
-    <a class="btn" href="prototype/index.html">
+    <a class="btn" href="prototype/index.html" onclick="window.posthog && posthog.capture('clicked_open_prototype')">
       Try the Interactive Prototype
     </a>
   </p>
@@ -198,95 +201,93 @@
     <!-- LIVING PRD (Updated every week!) -->
     <section id="prd">
       <h2>Living PRD (Product Requirements Document)</h2>
-      <p class="meta">Updated every week as we test with real users and learn what works.</p>
+      <p class="meta">PRD v3 · Updated every week as we test with real users and learn what works.</p>
 
-      <h3>1. Target User & The Job to Be Done</h3>
-     <h3>1. Target User & The Job to Be Done</h3>
+      <h3>1. Target User &amp; The Job to Be Done</h3>
 
 <p><strong>Who is this for?</strong>
-EventStay AI initially targets leisure travelers,
-including college students and young professionals,
-who want to find affordable hotel accommodations.
-Potential reachable users include friends and
-classmates who regularly travel and book hotels.
+Leisure travelers with flexible dates, especially college students and young professionals,
+planning a trip to a popular destination and trying to keep costs down. Reachable users are
+friends and classmates who travel several times a year.
+</p>
 
-The long-term vision also includes hotel revenue
-managers who make daily room pricing decisions.
+<p><strong>Job to be done:</strong>
+"Tell me which week to go so I pay less and avoid the crowds, and tell me why."
 </p>
 
 <p><strong>The painful "Before" workflow:</strong>
-Travelers often compare hotel prices across multiple
-booking platforms without understanding why prices
-increase significantly during certain periods.
-
-Major conventions, concerts, festivals, and sporting
-events can increase local hotel demand and prices.
-Travelers must manually research these events and
-compare different hotels and travel dates.
-
-Hotel revenue managers also spend time reviewing
-local events, competitor pricing, historical booking
-data, and spreadsheets when adjusting room rates.
+Travelers check flight and hotel prices on several sites one date at a time. Separately, they
+search for festivals, public holidays and the weather, and often only find out about a big event
+after booking, when prices are high and the city is packed. Nothing puts cost, crowds and weather
+side by side for a whole month.
 </p>
 
 <p><strong>The "After" workflow with this product:</strong>
-Travelers enter their destination and travel dates
-into EventStay AI.
-
-The platform displays relevant local events, compares
-hotel prices, and highlights potentially cheaper
-alternative travel dates.
-
-In the future, hotel revenue managers will also
-be able to use AI-assisted demand analysis and
-room rate recommendations to support pricing decisions.
+The traveler picks a destination, a month and a trip length. In seconds EventStay shows the three
+best check-in dates with the reasons, a crowd calendar for the month, and what's on (festivals,
+holidays, season notes). One click opens flights and hotels for those exact dates.
 </p>
 
-<h3>2. Scope & Explicit Non-Goals</h3>
+<h3>2. Scope &amp; Explicit Non-Goals</h3>
 
 <ul>
   <li>
     <strong>In Scope (Core Workflow):</strong>
-    A traveler selects a destination and travel dates,
-    views nearby events, compares sample hotel prices,
-    and identifies more affordable alternative dates.
+    Choose destination, month, trip length, home airport and priority → see the top three
+    recommended stays with reasons → explore the 12-month crowd chart and day-by-day crowd
+    calendar → open Google Flights and Booking.com with the dates filled in.
   </li>
-
+  <li><strong>Destinations:</strong> Ibiza (Spain), Seoul (South Korea) and New York City (USA). Going deep on three cities matters more than adding more.</li>
   <li>
     <strong>Out of Scope #1:</strong>
-    Direct hotel reservations and payment processing.
+    Booking, payments and user accounts.
   </li>
-
   <li>
     <strong>Out of Scope #2:</strong>
-    Real-time integration with every hotel booking
-    platform and guaranteed live hotel prices.
+    Live flight and hotel prices on the page for now. These need paid APIs with secret keys and a
+    server-side proxy. Planned next step: flight prices through a proxy (for example SerpApi
+    Google Flights behind a Cloudflare Worker).
   </li>
-
   <li>
     <strong>Out of Scope #3:</strong>
-    Automated hotel pricing changes and direct
-    integration with hotel property management systems.
+    Hotel revenue management tools for hotels (B2B). EventStay serves travelers only.
   </li>
 </ul>
 
-      <h3>3. How It Works Under the Hood & Riskiest Assumption (Week 2+)</h3>
-      
+      <h3>3. How It Works Under the Hood &amp; Riskiest Assumption</h3>
+
 <p><strong>Riskiest Assumption:</strong>
-Local event data can provide useful insights into
-hotel price fluctuations and help travelers make
-better booking decisions. The initial prototype
-will test whether travelers find event-aware price
-comparisons valuable.
+Travelers will trust crowd and price-level estimates enough to change their travel dates. We test
+this by watching whether users open flights or hotels for a recommended date
+(<code>outbound_click</code>) after a search (<code>best_dates_search</code>), and by asking test
+users whether the reasons convinced them.
 </p>
 
+<p><strong>Data sources (all free and keyless, called from the browser):</strong></p>
+<ul>
+  <li><strong>Weather:</strong> Open-Meteo. Forecast for the next 16 days; 10-year average (2016–2025) for later dates.</li>
+  <li><strong>Public holidays:</strong> Nager.Date, including Balearic regional holidays for Ibiza and Lunar New Year and Chuseok for Seoul.</li>
+  <li><strong>NYC events:</strong> NYC Open Data permitted events. Live permits for the next month (dataset tvpp-9vvx) and the same week last year for later dates (historical dataset bkfu-528j).</li>
+  <li><strong>Festivals:</strong> a curated list of recurring festivals per city. Dates that vary each year are labeled "Typical dates".</li>
+  <li><strong>Flights &amp; hotels:</strong> deep links to Google Flights and Booking.com.</li>
+</ul>
+
 <p><strong>Simple Architecture:</strong>
-User selects destination and dates
-&rarr; Application identifies relevant sample events
-&rarr; Hotel pricing model calculates illustrative rates
-&rarr; User compares hotels and alternative dates.
+User picks destination, month, nights and priority
+&rarr; Browser fetches weather, holidays (and NYC permits) from public APIs
+&rarr; Daily model: crowd level = city season level + weekend + festival + holiday (+ NYC permit) effects;
+hotel price level = seasonal index × the same effects
+&rarr; Each check-in date gets a score from crowd, price level and weather comfort, weighted by the user's priority
+&rarr; Top three stays, crowd chart, calendar and deep links.
 </p>
-      <h3>4. Unit Economics & Analytics Snapshot (Updated Weekly)</h3>
+
+<p><strong>Known limitations:</strong>
+Season tables and festival dates are estimates based on typical patterns and must be checked
+against official calendars each year. NYC permit data lists approved permits only, not every
+concert or conference. There are no live flight or hotel prices yet.
+</p>
+
+      <h3>4. Unit Economics &amp; Analytics Snapshot (Updated Weekly)</h3>
       <div class="grid-2">
         <div class="stat-box">
           <div class="stat-label">Cumulative Build Spend</div>
@@ -294,11 +295,13 @@ User selects destination and dates
         </div>
         <div class="stat-box">
           <div class="stat-label">Est. Cost Per User Run</div>
-          <div class="stat-value">[Not yet estimated]</div>
+          <div class="stat-value">$0 in API fees</div>
+          <div class="meta">All data APIs are free and keyless; hosting is GitHub Pages.</div>
         </div>
         <div class="stat-box">
-          <div class="stat-label">User Evidence (Analytics from Build 2)</div>
+          <div class="stat-label">User Evidence (PostHog)</div>
           <div class="stat-value">[Not yet measured]</div>
+          <div class="meta">Tracked: best_dates_search, outbound_click (flights / hotels), clicked_try_product, page views.</div>
         </div>
         <div class="stat-box">
           <div class="stat-label">Sponsor Call (Week 6)</div>
@@ -308,9 +311,11 @@ User selects destination and dates
     </section>
 
     <!-- WEEKLY BUILD LOG (Updated at least twice a week via Git commits) -->
-    
+    <section id="build-log">
+      <h2>Weekly Build Log</h2>
+
 <div class="log-entry">
-  <h3>Build 1 · Intent.md & Throwaway Prototype (Due Nov 9)</h3>
+  <h3>Build 1 · Intent.md &amp; Throwaway Prototype (Due Nov 9)</h3>
 
   <ul>
     <li>
@@ -339,27 +344,27 @@ User selects destination and dates
     </li>
 
     <li>
-      <strong>Cost & time this week:</strong>
+      <strong>Cost &amp; time this week:</strong>
       [Enter actual spending] · [Enter actual hours]
     </li>
   </ul>
 </div>
 
       <div class="log-entry">
-        <h3>Build 2 · Smallest Local Version & PostHog (Due Nov 16)</h3>
+        <h3>Build 2 · Smallest Local Version &amp; PostHog (Due Nov 16)</h3>
         <ul>
-          <li><strong>What shipped:</strong> [Local working slice, PostHog verified on this page and the local app, PRD v2, and local setup in AGENTS.md]</li>
-          <li><strong>What broke / changed in PRD:</strong> [Fill in]</li>
-          <li><strong>Cost & time this week:</strong> $[0.00] · [0] hours</li>
+          <li><strong>What shipped:</strong> Connected the NYC Open Data permitted events API (no key) to the prototype: New York searches showed real event permits for the stay, with borough filters and street-closure badges, and the NYC demand factor came from live permit counts. Installed the PostHog snippet on this page and the prototype. Documented the API in AGENTS.md. [Confirm PostHog events in the dashboard.]</li>
+          <li><strong>What broke / changed in PRD:</strong> The Product Page had been overwritten by the prototype file and was restored. Counting month-long holiday installations pinned every night at the price cap, so only short events (3 days or less) are counted.</li>
+          <li><strong>Cost &amp; time this week:</strong> $[0.00] · [0] hours</li>
         </ul>
       </div>
 
       <div class="log-entry">
         <h3>Build 3 · Build.exe: The Core Workflow (Due Nov 23)</h3>
         <ul>
-          <li><strong>What shipped:</strong> [End-to-end workflow working with real inputs + PostHog funnel events]</li>
-          <li><strong>What broke / changed in PRD:</strong> [Fill in]</li>
-          <li><strong>Cost & time this week:</strong> $[0.00] · [0] hours</li>
+          <li><strong>What shipped:</strong> Rebuilt the prototype into a best travel dates finder for Ibiza, Seoul and New York City: top three recommended stays with reasons, a 12-month crowd chart, a day-by-day crowd calendar, and a What's on list. Added live weather (Open-Meteo forecast and 10-year averages), public holidays (Nager.Date) and NYC historical permits, plus deep links to Google Flights and Booking.com. PostHog events: best_dates_search and outbound_click.</li>
+          <li><strong>What broke / changed in PRD:</strong> The concept moved from "compare hotel prices for my dates" to "find the best dates to go". Dropped fictional hotel names, the B2B hotel revenue module, and Chicago and Las Vegas. Replaced them with Ibiza and Seoul. The first crowd scale showed almost every day as "Very busy", so it was rescaled to keep red for true peaks.</li>
+          <li><strong>Cost &amp; time this week:</strong> $[0.00] · [0] hours</li>
         </ul>
       </div>
 
@@ -369,16 +374,16 @@ User selects destination and dates
           <li><strong>Chosen track:</strong> [A: 10-case domain eval and one outside target-user review; OR B: 3–5 outside users and replay findings]</li>
           <li><strong>Results and improvements:</strong> [Before/after evidence; for Track B, fixes to the top three friction points]</li>
           <li><strong>PRD v4 changes:</strong> [What the evidence changed]</li>
-          <li><strong>Cost & time this week:</strong> $[0.00] · [0] hours</li>
+          <li><strong>Cost &amp; time this week:</strong> $[0.00] · [0] hours</li>
         </ul>
       </div>
 
       <div class="log-entry">
-        <h3>Build 5 · Ship.installer: Launch Ops, Rollback Check & 2-Min Video (Due Dec 7)</h3>
+        <h3>Build 5 · Ship.installer: Launch Ops, Rollback Check &amp; 2-Min Video (Due Dec 7)</h3>
         <ul>
-          <li><strong>Launch Ops & Safety:</strong> [Verified no exposed keys, set spend cap, tested 2-minute rollback]</li>
-          <li><strong>2-Minute Video & Final Polish:</strong> [Link/embed above]</li>
-          <li><strong>Cost & time this week:</strong> $[0.00] · [0] hours</li>
+          <li><strong>Launch Ops &amp; Safety:</strong> [Verified no exposed keys, set spend cap, tested 2-minute rollback]</li>
+          <li><strong>2-Minute Video &amp; Final Polish:</strong> [Link/embed above]</li>
+          <li><strong>Cost &amp; time this week:</strong> $[0.00] · [0] hours</li>
         </ul>
       </div>
     </section>
