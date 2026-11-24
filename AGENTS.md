@@ -13,8 +13,9 @@ Travelers searching for affordable hotel accommodations.
 
 ## Core Workflow
 
-Select destination and dates → View local events →
-Compare illustrative hotel prices → Explore alternative dates.
+Select destination, month and trip length → See the best check-in dates →
+Compare crowd levels, weather, festivals and price levels day by day →
+Open flights and hotels with the chosen dates.
 
 ## Tech Stack
 
@@ -51,14 +52,16 @@ Compare illustrative hotel prices → Explore alternative dates.
 7. Save and wait for deployment.
 8. Visit the public URL and test the application.
 
-## NYC Open Data API
+## Data sources (all keyless, called from the browser)
 
-- Endpoint: https://data.cityofnewyork.us/resource/tvpp-9vvx.json (NYC Permitted Event Information, Socrata SODA API).
-- Docs: https://dev.socrata.com/foundry/data.cityofnewyork.us/tvpp-9vvx
-- Called from the browser in docs/prototype/index.html with no API key (basic calls are rate-limited).
-- One request per search fetches a window from check-in −7 days to +14 days, which covers the stay and the alternative dates.
-- New York event cards are live. The NYC hotel event factor is derived from live counts of short events (3 days or less) with street closures or large public formats: +1.2% per event per night, capped at +35%. Hotel prices stay illustrative.
-- If the API fails, the page falls back to the sample events and says so.
+The prototype (docs/prototype/index.html) is a best-travel-dates finder for Ibiza, Seoul and New York City.
+
+- Weather: Open-Meteo. Forecast API for the next 16 days; Archive API (2016–2025, ±3-day window) for the 10-year average of later dates.
+- Public holidays: Nager.Date (https://date.nager.at/api/v3/PublicHolidays/{year}/{ES|KR|US}). Ibiza also uses the Balearic regional holidays (county ES-IB).
+- NYC events: NYC Open Data. Live permits (tvpp-9vvx, about the next month) and historical permits (bkfu-528j, the same weekday last year) are counted per day for permits with street closures or large public formats.
+- Festivals: a curated list in the CITIES object. Recurring dates are marked "Typical dates" and must be confirmed each year.
+- Flights and hotels: deep links to Google Flights and Booking.com with the dates filled in. No real prices on the page yet; a real flight API needs a secret key and a server-side proxy.
+- Crowd and hotel price levels are EventStay estimates (season tables per city × weekend, festival, holiday and NYC permit effects). Keep them labeled as estimates.
 - Serve over http (for example `python3 -m http.server` in docs/) rather than opening the file directly.
 
 ## Engineering Rules

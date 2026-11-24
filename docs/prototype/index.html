@@ -12,157 +12,318 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0a1730">
-  <title>EventStay AI — Event-aware hotel price explorer</title>
+  <title>EventStay AI — Best travel dates finder</title>
   <style>
-    :root{--navy:#0b1933;--ink:#14243f;--muted:#65758c;--line:#e0e8f1;--pale:#f3f7fc;--blue:#2869ec;--aqua:#0b948c;--red:#af4b36;--white:#fff;--shadow:0 14px 38px rgba(21,46,89,.08)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--pale);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #9ac6ff;outline-offset:2px}
-    .hero{background:radial-gradient(circle at 82% 8%,#204779 0%,transparent 31%),linear-gradient(135deg,#0b1933,#102950 85%);color:white;padding:25px 24px 108px}.shell{width:min(1160px,100%);margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{font-weight:820;font-size:22px;letter-spacing:-.7px;display:flex;gap:11px;align-items:center}.mark{background:#28c4b6;width:37px;height:37px;display:grid;place-items:center;color:#0b1933;border-radius:12px;font-weight:900}.navnote{color:#bdd1e8;font-size:13px;border:1px solid #46617e;padding:6px 12px;border-radius:99px}.hero-content{margin-top:65px;max-width:750px}.eyebrow{color:#8be7da;letter-spacing:.14em;text-transform:uppercase;font-size:12px;font-weight:800}.hero h1{font-size:clamp(32px,5vw,57px);line-height:1.13;letter-spacing:-2px;margin:12px 0 16px}.hero p{font-size:17px;color:#c9d9eb;max-width:660px;margin:0}.hero strong{color:white}
-    main{margin-top:-62px;padding:0 24px 65px}.search-card,.panel,.hotel-card,.summary,.notice{background:white;border-radius:18px;box-shadow:var(--shadow);border:1px solid var(--line)}.search-card{padding:25px;position:relative}.search-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:17px}.search-top h2{font-size:17px;margin:0}.sample-tag{font-size:12px;color:#2764a0;background:#eaf3ff;border-radius:100px;padding:6px 11px;font-weight:750}.search-grid{display:grid;grid-template-columns:1.35fr 1fr .8fr auto;gap:13px;align-items:end}.field label{display:block;font-size:12px;font-weight:780;color:#53627a;margin-bottom:7px}.field select,.field input{width:100%;min-height:48px;border-radius:10px;border:1px solid #cfdceb;background:white;padding:0 12px;color:#172b47}.primary{border:0;background:var(--blue);color:white;padding:0 23px;height:48px;border-radius:10px;font-weight:800;white-space:nowrap}.primary:hover{background:#1555d9}.search-hint{font-size:12px;color:var(--muted);margin:12px 0 0}
-    .section-title{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:35px 0 15px}.section-title h2{font-size:23px;margin:0;letter-spacing:-.5px}.section-title p{margin:4px 0 0;color:var(--muted);font-size:13px}.pill{border-radius:99px;background:#e7f7f1;color:#11735d;padding:6px 11px;font-size:12px;font-weight:750}.event-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.event-card{background:white;border:1px solid var(--line);border-radius:16px;padding:19px;min-height:163px}.event-card .type{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:#6f82a0;font-weight:800}.event-card h3{font-size:16px;margin:9px 0 5px;line-height:1.3}.event-card p{font-size:13px;color:var(--muted);margin:0}.impact{display:inline-block;margin-top:13px;border-radius:6px;padding:4px 8px;font-size:11px;font-weight:800;background:#fff0e9;color:#a74f31}.impact.low{background:#e9f7f2;color:#087567}.empty{grid-column:1/-1;background:white;border:1px dashed #bdcfe2;border-radius:16px;padding:25px;color:#6b7e96}.empty.warn{border-color:#f0c7b6;background:#fff8f4;color:#8a4a32}
-    .live-bar{background:white;border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:15px;display:grid;gap:13px}.live-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:13px;color:#3c4f6b}.live-head strong{color:var(--ink)}.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#14b38a;margin-right:7px;box-shadow:0 0 0 4px #14b38a24}.live-head a{color:var(--blue);font-weight:700;text-decoration:none;font-size:12px}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.stat{background:var(--pale);border-radius:12px;padding:10px 13px}.stat b{display:block;font-size:20px;letter-spacing:-.4px}.stat span{font-size:12px;color:var(--muted)}.chips{display:flex;flex-wrap:wrap;gap:7px;align-items:center}.chip{border:1px solid #d3dfec;background:white;color:#3c4f6b;border-radius:99px;padding:5px 11px;font-size:12px;font-weight:700}.chip.active{background:var(--ink);border-color:var(--ink);color:white}.toggle{font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center;margin-left:auto}.event-card.live .type{color:#0b8979}.event-card .where{margin-top:3px;font-size:12px}.more-row{text-align:center;margin-top:14px}.ghost{border:1px solid #cfdceb;background:white;border-radius:10px;padding:9px 18px;font-weight:750;color:var(--ink)}.ghost:hover{border-color:var(--blue)}.skel{background:linear-gradient(90deg,#eef3f9,#f8fafd,#eef3f9);background-size:200% 100%;animation:sh 1.2s infinite;border-radius:16px;min-height:163px}@keyframes sh{to{background-position:-200% 0}}.source-tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:5px;padding:2px 6px;margin-left:6px;vertical-align:middle;background:#e7f7f1;color:#11735d}.source-tag.sample{background:#eef2f7;color:#6b7e96}
-    .live-bar[hidden],.more-row[hidden]{display:none}
-    @media(max-width:570px){.stats{grid-template-columns:1fr}.toggle{margin-left:0}}
-    .summary{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 24px;margin-top:23px;background:#edfbf7;border-color:#bee9df}.summary .summary-label{font-size:12px;color:#3d786c;font-weight:780;text-transform:uppercase;letter-spacing:.05em}.summary strong{font-size:25px;display:block;letter-spacing:-.6px}.summary p{margin:3px 0 0;color:#4c7069;font-size:13px}.summary .right{text-align:right}.summary .big{font-size:22px;font-weight:850;color:#147b67}
-    .hotel-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.hotel-card{overflow:hidden}.hotel-art{height:110px;position:relative;display:flex;align-items:end;padding:15px;color:white;background:linear-gradient(135deg,#39597e,#8da7c7)}.hotel-art::before{content:"";position:absolute;width:125px;height:155px;right:20px;top:16px;border:9px solid #ffffff26;border-bottom:0;transform:skew(-10deg)}.hotel-art.a{background:linear-gradient(130deg,#2b5371,#75a3ac)}.hotel-art.b{background:linear-gradient(130deg,#65506d,#b59a9c)}.hotel-art.c{background:linear-gradient(130deg,#334f8a,#7e93cf)}.hotel-art span{position:relative;font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.1em}.hotel-body{padding:18px}.hotel-body h3{font-size:18px;letter-spacing:-.2px;margin:0}.hotel-body .desc{color:var(--muted);font-size:12px;margin:4px 0 17px}.price-row{display:flex;justify-content:space-between;align-items:end;border-top:1px solid var(--line);padding-top:14px;gap:8px}.price{font-size:30px;font-weight:850;letter-spacing:-1px}.price small{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:0}.versus{font-size:12px;color:var(--muted);text-align:right}.versus strong{color:var(--red);font-size:14px}.fullcost{font-size:12px;color:#536781;margin-top:9px}.method{font-size:12px;color:#78889e;margin:16px 0 0}.panel{padding:23px 25px}.alternatives{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.alt{display:flex;flex-direction:column;align-items:flex-start;gap:5px;border:1px solid #d6e3f1;background:#f9fbff;padding:15px;border-radius:12px;text-align:left}.alt:hover{border-color:var(--blue)}.alt.selected{border-color:#15a99a;background:#eafaf7}.alt .d{font-size:13px;font-weight:800}.alt .s{font-size:13px;color:#0b8979;font-weight:850}.alt .n{font-size:11px;color:var(--muted)}.notice{padding:18px 22px;margin-top:26px;box-shadow:none;background:#f9fbff;color:#5e7087;font-size:12px}.notice strong{color:#2d4364}.footer{margin-top:30px;font-size:12px;color:#71839b;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    @media(max-width:850px){.search-grid{grid-template-columns:1fr 1fr}.primary{width:100%}.event-list,.hotel-grid{grid-template-columns:1fr 1fr}.alternatives{grid-template-columns:1fr 1fr}}@media(max-width:570px){.hero{padding:22px 18px 96px}.hero-content{margin-top:40px}.navnote{display:none}main{padding:0 14px 35px}.search-card{padding:18px}.search-grid,.event-list,.hotel-grid,.alternatives{grid-template-columns:1fr}.section-title{align-items:start}.summary{align-items:start;flex-direction:column}.summary .right{text-align:left}}
+    :root{--navy:#0b1933;--ink:#14243f;--muted:#65758c;--line:#e0e8f1;--pale:#f3f7fc;--blue:#2869ec;--aqua:#0b948c;--white:#fff;--shadow:0 14px 38px rgba(21,46,89,.08);
+      --q-bg:#d8f3e7;--q-fg:#0d7350;--m-bg:#fbf0c5;--m-fg:#7c5a00;--b-bg:#ffdcc4;--b-fg:#a24a10;--v-bg:#ffcfd2;--v-fg:#a01f2e}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--pale);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #9ac6ff;outline-offset:2px}
+    .hero{background:radial-gradient(circle at 82% 8%,#204779 0%,transparent 31%),linear-gradient(135deg,#0b1933,#102950 85%);color:#fff;padding:25px 24px 108px}.shell{width:min(1160px,100%);margin:auto}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{font-weight:820;font-size:22px;letter-spacing:-.7px;display:flex;gap:11px;align-items:center}.mark{background:#28c4b6;width:37px;height:37px;display:grid;place-items:center;color:#0b1933;border-radius:12px;font-weight:900}.navnote{color:#bdd1e8;font-size:13px;border:1px solid #46617e;padding:6px 12px;border-radius:99px}
+    .hero-content{margin-top:58px;max-width:760px}.eyebrow{color:#8be7da;letter-spacing:.14em;text-transform:uppercase;font-size:12px;font-weight:800}.hero h1{font-size:clamp(32px,5vw,55px);line-height:1.12;letter-spacing:-2px;margin:12px 0 16px}.hero p{font-size:17px;color:#c9d9eb;max-width:660px;margin:0}.hero strong{color:#fff}
+    main{margin-top:-62px;padding:0 24px 65px}.card{background:#fff;border-radius:18px;box-shadow:var(--shadow);border:1px solid var(--line)}
+    .search-card{padding:24px}.search-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}.search-top h2{font-size:17px;margin:0}.tag{font-size:12px;color:#2764a0;background:#eaf3ff;border-radius:100px;padding:6px 11px;font-weight:750}
+    .search-grid{display:grid;grid-template-columns:1.3fr 1fr .8fr .8fr 1fr auto;gap:12px;align-items:end}.field label{display:block;font-size:12px;font-weight:780;color:#53627a;margin-bottom:7px}.field select,.field input{width:100%;min-height:48px;border-radius:10px;border:1px solid #cfdceb;background:#fff;padding:0 12px;color:#172b47}.field input{text-transform:uppercase}
+    .primary{border:0;background:var(--blue);color:#fff;padding:0 22px;height:48px;border-radius:10px;font-weight:800;white-space:nowrap}.primary:hover{background:#1555d9}
+    .status{font-size:12px;color:var(--muted);margin:12px 0 0;min-height:18px}.status.warn{color:#a24a10}
+    .section-title{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:36px 0 14px;flex-wrap:wrap}.section-title h2{font-size:23px;margin:0;letter-spacing:-.5px}.section-title p{margin:4px 0 0;color:var(--muted);font-size:13px}
+    .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted);align-items:center}.legend span{display:inline-flex;align-items:center;gap:5px}.sw{width:14px;height:14px;border-radius:4px;display:inline-block}
+    .lv-q{background:var(--q-bg);color:var(--q-fg)}.lv-m{background:var(--m-bg);color:var(--m-fg)}.lv-b{background:var(--b-bg);color:var(--b-fg)}.lv-v{background:var(--v-bg);color:var(--v-fg)}
+    .recs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.rec{padding:20px;display:flex;flex-direction:column;gap:12px;position:relative}.rec.best{border:2px solid #15a99a}.rank{font-size:11px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;color:#0b8979}.rec h3{margin:0;font-size:20px;letter-spacing:-.4px}.rec .sub{font-size:12px;color:var(--muted);margin-top:-8px}
+    .score{position:absolute;top:18px;right:18px;font-size:12px;font-weight:850;background:#eafaf7;color:#0b7a6c;border-radius:99px;padding:4px 10px}
+    .crowd{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px}.people{display:flex;gap:1px}.people svg{width:16px;height:16px}.crowd b{font-size:14px;white-space:nowrap}.crowd small{font-size:12px;opacity:.85;margin-left:auto;white-space:nowrap}
+    .facts{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fact{background:var(--pale);border-radius:10px;padding:8px 11px}.fact span{display:block;font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}.fact b{font-size:15px}.fact .src{font-size:10px;color:#8a99ad;font-weight:600;text-transform:none;letter-spacing:0}
+    .why{margin:0;padding-left:18px;font-size:13px;color:#3c4f6b}.why li{margin:2px 0}
+    .chips{display:flex;flex-wrap:wrap;gap:6px}.chip{font-size:11px;font-weight:750;border-radius:6px;padding:3px 8px;background:#f1ecff;color:#5a3fb5}.chip.hol{background:#e8f1ff;color:#2459b8}
+    .links{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}.link{flex:1;text-align:center;text-decoration:none;font-size:13px;font-weight:800;border-radius:10px;padding:10px 12px;border:1px solid #cfdceb;color:var(--ink);background:#fff;min-width:140px}.link:hover{border-color:var(--blue)}.link.fl{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .year{padding:18px 18px 12px}.bars{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:8px;align-items:end;height:170px}.bar{border:0;background:none;padding:0;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-end;height:100%;gap:5px}.bar .fill{border-radius:8px 8px 4px 4px;display:flex;align-items:flex-start;justify-content:center;font-size:11px;font-weight:850;padding-top:4px;min-height:22px;transition:transform .15s}.bar:hover .fill{transform:translateY(-3px)}.bar .m{font-size:12px;font-weight:800;text-align:center;color:#3c4f6b}.bar .t{font-size:11px;text-align:center;color:var(--muted)}.bar.sel .m{color:var(--blue)}.bar.sel .fill{outline:3px solid var(--blue);outline-offset:2px}
+    .cal-wrap{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;align-items:start}.cal{padding:18px}.cal-head{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:6px}.cal-head div{font-size:11px;font-weight:800;color:var(--muted);text-align:center;text-transform:uppercase}.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+    .day{border:1px solid transparent;border-radius:10px;min-height:64px;padding:6px 7px;text-align:left;display:flex;flex-direction:column;gap:2px;position:relative}.day .n{font-weight:850;font-size:14px}.day .tt{font-size:11px;opacity:.85}.day .dots{display:flex;gap:3px;position:absolute;top:8px;right:7px}.dot{width:7px;height:7px;border-radius:50%;background:#7b5be0}.dot.h{background:#2f6fe0}.day.past{background:#f1f4f8;color:#a7b3c2;cursor:default}.day.blank{visibility:hidden}.day.stay{box-shadow:inset 0 0 0 2px #15a99a}.day.pick{box-shadow:inset 0 0 0 2px var(--blue)}.day .rk{position:absolute;bottom:6px;right:7px;font-size:10px;font-weight:900;background:#15a99a;color:#fff;border-radius:99px;width:17px;height:17px;display:grid;place-items:center}.day:not(.past):hover{border-color:var(--ink)}
+    .detail{padding:20px;display:flex;flex-direction:column;gap:12px}.detail h3{margin:0;font-size:18px}.hint{font-size:13px;color:var(--muted);margin:0}
+    .whatson{padding:6px 20px}.wo{display:flex;gap:14px;padding:13px 0;border-top:1px solid var(--line);align-items:flex-start}.wo:first-child{border-top:0}.wo .d{min-width:118px;font-size:13px;font-weight:800}.wo h4{margin:0;font-size:15px}.wo p{margin:2px 0 0;font-size:12px;color:var(--muted)}.approx{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#8a6400;background:#fff4d1;border-radius:5px;padding:2px 6px;margin-left:6px;vertical-align:middle}.live{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#11735d;background:#e7f7f1;border-radius:5px;padding:2px 6px;margin-left:6px;vertical-align:middle}
+    .method{padding:20px 24px;font-size:13px;color:#3c4f6b}.method h3{font-size:15px;margin:0 0 8px}.method ul{margin:0 0 12px;padding-left:18px}.method a{color:var(--blue)}
+    .skel{background:linear-gradient(90deg,#eef3f9,#f8fafd,#eef3f9);background-size:200% 100%;animation:sh 1.2s infinite;border-radius:18px;min-height:260px}@keyframes sh{to{background-position:-200% 0}}
+    .notice{padding:18px 22px;margin-top:26px;box-shadow:none;background:#f9fbff;color:#5e7087;font-size:12px}.notice strong{color:#2d4364}.notice a{color:var(--blue)}.footer{margin-top:30px;font-size:12px;color:#71839b;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    @media(max-width:980px){.search-grid{grid-template-columns:1fr 1fr 1fr}.primary{width:100%}.recs{grid-template-columns:1fr 1fr}.cal-wrap{grid-template-columns:1fr}}
+    @media(max-width:620px){.hero{padding:22px 16px 96px}.hero-content{margin-top:36px}.navnote{display:none}main{padding:0 16px 35px}.search-card{padding:18px}.search-grid{grid-template-columns:1fr 1fr}.search-grid .field:first-child,.search-grid .primary{grid-column:1/-1}.recs{grid-template-columns:1fr}.bars{gap:3px;height:150px}.bar .fill{font-size:0}.bar .t{font-size:9px}.bar .m{font-size:10px}.cal,.year{padding:12px}.cal-grid,.cal-head{gap:3px}.day{min-height:48px;padding:4px 5px}.day .tt{display:none}.day .n{font-size:13px}.wo{flex-direction:column;gap:4px}}
   </style>
 </head>
 <body>
-  <div class="hero"><div class="shell"><div class="top"><div class="brand"><div class="mark">E</div>EventStay <span style="color:#6ae3d3">AI</span></div><div class="navnote">Build 2 · Live NYC event data</div></div><div class="hero-content"><div class="eyebrow">Travel smarter with event intelligence</div><h1>Know what's happening.<br>Know what to pay.</h1><p>Explore how <strong>local events might affect hotel prices</strong>, compare hotels, and discover better-value travel dates—all in one place.</p></div></div></div>
-  <main class="shell"><section class="search-card" aria-label="Search hotel prices"><div class="search-top"><h2>Explore your stay</h2><span class="sample-tag">NYC events live · hotel rates illustrative</span></div><form class="search-grid" id="searchForm"><div class="field"><label for="city">Destination</label><select id="city"><option value="new-york">New York City</option><option value="chicago">Chicago</option><option value="las-vegas">Las Vegas</option></select></div><div class="field"><label for="checkin">Check-in date</label><input type="date" id="checkin" required></div><div class="field"><label for="nights">Stay length</label><select id="nights"><option value="1">1 night</option><option value="2" selected>2 nights</option><option value="3">3 nights</option></select></div><button type="submit" class="primary">Compare stays →</button></form><p class="search-hint">New York pulls real permitted events from the NYC Open Data API (covers roughly the next month). Chicago and Las Vegas use fictional sample events. Hotel names and rates are always illustrative.</p></section>
-    <div class="section-title"><div><h2>What's happening nearby</h2><p id="eventSub">Events overlapping your selected stay</p></div><span class="pill" id="demandPill">Checking demand</span></div><div class="live-bar" id="liveBar" hidden></div><div class="event-list" id="events" aria-live="polite"></div><div class="more-row" id="moreRow" hidden><button type="button" class="ghost" id="moreBtn">Show more events</button></div>
-    <div class="section-title"><div><h2>Compare hotel prices</h2><p id="hotelSub">Illustrative nightly estimates for your dates</p></div></div><div class="hotel-grid" id="hotels" aria-live="polite"></div><p class="method">How prices work in this prototype: fictional baseline hotel prices × weekend adjustment × illustrative event-demand factor. In New York the event factor is derived from the number of live permitted events (lasting 3 days or less) with street closures or large public formats on each night (+1.2% per event, capped at +35%); elsewhere it comes from sample events. This is a deterministic demo, <strong>not an AI prediction</strong> or a live booking quote.</p>
-    <div class="section-title"><div><h2>Could you travel for less?</h2><p>Explore nearby check-in dates while keeping the same stay length</p></div></div><section class="panel"><div class="alternatives" id="alternatives" aria-live="polite"></div><p class="method">Savings compare estimated total room costs at the same hotel, excluding taxes and fees. Selecting a date refreshes the results above.</p></section>
-    <div class="notice"><strong>Prototype disclaimer.</strong> New York events come live from the <a href="https://data.cityofnewyork.us/d/tvpp-9vvx" target="_blank" rel="noopener">NYC Permitted Event Information</a> dataset (NYC Open Data, no API key). It lists approved permits only, so not every concert or conference appears. Hotel names, prices and demand effects are synthetic, and Chicago and Las Vegas events are fictional. No real-time inventory, guaranteed savings or booking. No personal information is collected and no paid API is used.</div><div class="footer"><span>EventStay AI · Build 2 · Fall 2026</span><span>Customer-facing proof of concept · Hotel revenue management module is future scope</span></div>
+  <div class="hero"><div class="shell"><div class="top"><div class="brand"><div class="mark">E</div>EventStay <span style="color:#6ae3d3">AI</span></div><div class="navnote">Build 2 · Best travel dates finder</div></div>
+    <div class="hero-content"><div class="eyebrow">Travel smarter with event intelligence</div><h1>Find the best week to go.<br>Fewer crowds, lower cost.</h1><p>Pick a destination and a month. EventStay compares <strong>crowd levels, festivals, holidays, weather and hotel price seasons</strong> day by day and recommends the best dates for your trip.</p></div></div></div>
+  <main class="shell">
+    <section class="card search-card" aria-label="Find the best travel dates">
+      <div class="search-top"><h2>Plan your trip</h2><span class="tag">Weather, holidays &amp; NYC events live · crowd and price levels estimated</span></div>
+      <form class="search-grid" id="form">
+        <div class="field"><label for="city">Destination</label><select id="city"><option value="ibiza">Ibiza, Spain</option><option value="seoul">Seoul, South Korea</option><option value="new-york">New York City, USA</option></select></div>
+        <div class="field"><label for="month">Month</label><select id="month"></select></div>
+        <div class="field"><label for="nights">Trip length</label><select id="nights"><option value="3">3 nights</option><option value="4">4 nights</option><option value="5" selected>5 nights</option><option value="7">7 nights</option></select></div>
+        <div class="field"><label for="origin">Flying from</label><input id="origin" value="JFK" maxlength="3" autocomplete="off" aria-describedby="status" title="3-letter airport code, e.g. JFK, ICN, LHR"></div>
+        <div class="field"><label for="priority">What matters most</label><select id="priority"><option value="balanced">Balanced</option><option value="cost">Lowest cost</option><option value="crowds">Fewest crowds</option><option value="festivals">Catch a festival</option></select></div>
+        <button type="submit" class="primary">Find best dates →</button>
+      </form>
+      <p class="status" id="status" aria-live="polite"></p>
+    </section>
+
+    <div class="section-title"><div><h2>Best dates for your trip</h2><p id="recSub">Top check-in dates in your chosen month</p></div></div>
+    <div class="recs" id="recs" aria-live="polite"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
+
+    <div class="section-title"><div><h2>Crowd level through the year</h2><p id="yearSub">Average crowd level by month · tap a month to explore it</p></div><div class="legend" id="legend1"></div></div>
+    <section class="card year"><div class="bars" id="bars"></div></section>
+
+    <div class="section-title"><div><h2>Day-by-day crowd calendar</h2><p id="calSub">Tap a check-in date to see that stay</p></div><div class="legend" id="legend2"></div></div>
+    <div class="cal-wrap"><section class="card cal"><div class="cal-head"><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div></div><div class="cal-grid" id="cal"></div></section><section class="card detail" id="detail" aria-live="polite"><p class="hint">Tap any date in the calendar to see crowd level, weather, events and prices for a stay starting that day.</p></section></div>
+
+    <div class="section-title"><div><h2>What's on</h2><p id="woSub">Festivals and public holidays in your month</p></div></div>
+    <section class="card whatson" id="whatson"></section>
+
+    <div class="section-title"><div><h2>How we score dates</h2></div></div>
+    <section class="card method">
+      <h3>Data sources</h3>
+      <ul>
+        <li><strong>Weather (live):</strong> <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>. Dates within 16 days use the forecast. Later dates use the 10-year average for that week (2016–2025).</li>
+        <li><strong>Public holidays (live):</strong> <a href="https://date.nager.at/" target="_blank" rel="noopener">Nager.Date</a>, including regional Balearic holidays for Ibiza and Lunar New Year and Chuseok for Seoul.</li>
+        <li><strong>NYC events (live):</strong> <a href="https://data.cityofnewyork.us/d/tvpp-9vvx" target="_blank" rel="noopener">NYC Open Data permitted events</a> for the next month, and the <a href="https://data.cityofnewyork.us/d/bkfu-528j" target="_blank" rel="noopener">historical permits</a> from the same week last year for later dates.</li>
+        <li><strong>Festivals:</strong> a curated list of recurring festivals. Dates marked <span class="approx">Typical dates</span> follow the usual pattern and change every year, so confirm before booking.</li>
+        <li><strong>Flights and hotels:</strong> live prices open on Google Flights and Booking.com with your dates filled in. EventStay doesn't show real prices on this page yet.</li>
+      </ul>
+      <h3>Scores</h3>
+      <ul>
+        <li><strong>Crowd level (0–100):</strong> a typical tourism-season level for the city, plus weekends, festivals, public holidays and, in New York, permit counts. Quiet &lt; 35 · Moderate &lt; 55 · Busy &lt; 75 · Very busy 75+.</li>
+        <li><strong>Hotel price level:</strong> an estimated seasonal index × weekend, festival and holiday effects, shown against the 12-month average. It is not a quote.</li>
+        <li><strong>Best-dates score:</strong> combines crowd, price level and weather comfort, weighted by what matters most to you.</li>
+      </ul>
+    </section>
+
+    <div class="notice card"><strong>Prototype disclaimer.</strong> Crowd levels, hotel price levels and festival dates are EventStay estimates based on typical seasons and recurring events, not guarantees. Weather, holidays and NYC permit data come live from public APIs with no API key. Prices open on third-party sites. EventStay doesn't take bookings or collect personal information.</div>
+    <div class="footer"><span>EventStay AI · Build 2 · Fall 2026</span><span>Customer-facing proof of concept</span></div>
   </main>
   <script>
   'use strict';
-  const catalog={
-    'new-york':{name:'New York City',hotels:[{name:'Harbor House Hotel',area:'Midtown · 3-star',base:218,style:'a',tag:'City essentials'},{name:'The Mercer Lane',area:'Chelsea · 4-star',base:284,style:'b',tag:'Boutique comfort'},{name:'Parkline Suites',area:'Upper West Side · 4-star',base:329,style:'c',tag:'Room to unwind'}],events:[{name:'Metro Innovation Expo',type:'Business convention',start:'2026-11-11',end:'2026-11-14',strength:.40,venue:'Illustrative convention center event'},{name:'Autumn Music Weekend',type:'Music festival',start:'2026-11-20',end:'2026-11-22',strength:.30,venue:'Illustrative citywide event'},{name:'Winter Arts Fair',type:'Arts & culture',start:'2026-12-04',end:'2026-12-06',strength:.22,venue:'Illustrative seasonal event'}]},
-    'chicago':{name:'Chicago',hotels:[{name:'Lakeview Central',area:'Loop · 3-star',base:176,style:'a',tag:'Downtown base'},{name:'West Loop Atelier',area:'West Loop · 4-star',base:235,style:'b',tag:'Design-led stay'},{name:'Riverstone Hotel',area:'River North · 4-star',base:279,style:'c',tag:'Riverside style'}],events:[{name:'Great Lakes Design Summit',type:'Business convention',start:'2026-11-12',end:'2026-11-15',strength:.34,venue:'Illustrative convention event'},{name:'City Food Celebration',type:'Food festival',start:'2026-11-27',end:'2026-11-29',strength:.26,venue:'Illustrative city event'},{name:'Indoor Winter Games',type:'Sporting event',start:'2026-12-11',end:'2026-12-13',strength:.24,venue:'Illustrative arena event'}]},
-    'las-vegas':{name:'Las Vegas',hotels:[{name:'Desert Light Hotel',area:'Near the Strip · 3-star',base:132,style:'a',tag:'Practical stay'},{name:'Neon Boulevard',area:'The Strip · 4-star',base:201,style:'b',tag:'Heart of the action'},{name:'Vista Grand Suites',area:'The Strip · 5-star',base:315,style:'c',tag:'Suite experience'}],events:[{name:'Future Tech Showcase',type:'Industry expo',start:'2026-11-12',end:'2026-11-15',strength:.46,venue:'Illustrative expo event'},{name:'Desert Lights Festival',type:'Music festival',start:'2026-11-25',end:'2026-11-28',strength:.33,venue:'Illustrative festival event'},{name:'Winter Entertainment Expo',type:'Business convention',start:'2026-12-08',end:'2026-12-11',strength:.36,venue:'Illustrative trade show'}]}
+  // ---------- City profiles ----------
+  // season/price: EventStay estimates of typical tourism crowding (1–10) and hotel price index (1 = average) by month, Jan..Dec.
+  // Festival rules: fixed 'MM-DD', range ['MM-DD','MM-DD'], nth [month, weekday 0=Sun, n (-1 = last)], or fromHoliday name + offset.
+  const CITIES={
+    'ibiza':{name:'Ibiza',full:'Ibiza, Spain',cc:'ES',region:'ES-IB',lat:38.9089,lon:1.4328,airport:'IBZ',booking:'Ibiza',ideal:[24,30],hol:{crowd:6,price:.05},
+      flightNote:'Ibiza Airport (IBZ). Direct flights are mostly from Europe; from the US or Asia, connect through Madrid or Barcelona.',
+      season:[1,1,2,3,6,8,10,10,8,5,1,1],price:[.45,.45,.5,.65,.9,1.25,1.6,1.75,1.25,.8,.45,.5],
+      notes:{0:'Low season: many hotels, beach clubs and nightclubs are closed.',1:'Low season: many hotels, beach clubs and nightclubs are closed.',2:'Off season: quiet and cheap, but limited flights and many venues still closed.',3:'Shoulder season: hotels reopen through the month.',9:'Season winds down after the closing parties.',10:'Low season: most clubs and many hotels close for winter.',11:'Low season: most clubs and many hotels are closed.'},
+      festivals:[
+        {name:'Ibiza Medieval Festival',where:'Dalt Vila (Old Town)',nth:[5,5,2],len:3,boost:10,price:.08,approx:true,note:'Medieval market, music and street shows in the old town; usually a weekend in May.'},
+        {name:'Club opening parties',where:'Island-wide',range:['05-15','06-05'],boost:8,price:.1,approx:true,note:'Superclubs open the summer season; dates vary by club.'},
+        {name:'Nit de Sant Joan',where:'Sant Joan de Labritja and island-wide',fixed:'06-23',len:2,boost:8,price:.05,note:'Midsummer bonfires and fireworks.'},
+        {name:'Festes de la Terra',where:'Ibiza Town',range:['08-01','08-08'],boost:7,price:.05,approx:true,note:'Ibiza Town festival with concerts, ending with fireworks over the harbour.'},
+        {name:'Club closing parties',where:'Island-wide',range:['09-26','10-12'],boost:9,price:.1,approx:true,note:'Season-closing parties; dates vary by club.'},
+        {name:'Holy Week (Semana Santa)',where:'Ibiza Town and villages',fromHoliday:'Good Friday',offset:-3,len:5,boost:6,price:.05,note:'Easter processions; the first Spanish holiday rush of the year.'}]},
+    'seoul':{name:'Seoul',full:'Seoul, South Korea',cc:'KR',lat:37.5665,lon:126.978,airport:'ICN',booking:'Seoul',ideal:[17,26],hol:{crowd:5,price:.08},
+      flightNote:'Incheon International (ICN), about 1 hour from central Seoul by airport rail.',
+      season:[4,4,5,8,8,6,5,6,6,9,7,6],price:[.85,.85,.95,1.2,1.15,1,1.05,1.05,1.05,1.25,1.05,1],
+      notes:{6:'Monsoon season (jangma) usually brings heavy rain from late June to late July.',7:'Hot and humid; school summer holidays.',3:'Cherry blossom season is peak spring demand.',9:'Autumn foliage and clear skies make October the busiest month.'},
+      festivals:[
+        {name:'Cherry blossom season',where:'Yeouido, Seokchon Lake and citywide',range:['04-02','04-12'],boost:18,price:.12,approx:true,note:'Peak bloom shifts each year with the weather.'},
+        {name:'Lotus Lantern Festival (Yeondeunghoe)',where:'Jongno and Jogyesa Temple',fromHoliday:"Buddha's Birthday",offset:-11,len:3,boost:8,price:.04,approx:true,note:'Lantern parade held before Buddha\'s Birthday; check the official dates.'},
+        {name:'Seoul Jazz Festival',where:'Olympic Park',range:['05-23','05-25'],boost:5,price:.03,approx:true,note:'Large outdoor music festival, usually late May.'},
+        {name:'Seoul International Fireworks Festival',where:'Yeouido Hangang Park',nth:[10,6,1],len:1,boost:20,price:.08,approx:true,note:'Draws around a million people to the riverside; usually an October Saturday.'},
+        {name:'Autumn foliage peak',where:'Namsan, Bukhansan and palaces',range:['10-20','11-05'],boost:10,price:.08,approx:true,note:'Peak colour varies by year.'},
+        {name:'Seoul Lantern Festival',where:'Cheonggyecheon Stream',range:['11-15','12-15'],boost:5,price:.02,approx:true,note:'Lantern displays along the stream; dates vary by year.'}]},
+    'new-york':{name:'New York City',full:'New York City, USA',cc:'US',lat:40.758,lon:-73.9855,airport:'NYC',booking:'New York',ideal:[16,26],hol:{crowd:6,price:.05},
+      flightNote:'"NYC" searches all three airports: JFK, LaGuardia (LGA) and Newark (EWR).',
+      season:[3,3,5,6,7,7,7,6,7,8,8,9],price:[.75,.75,.9,1,1.1,1.1,1,.95,1.15,1.2,1.15,1.25],
+      notes:{0:'Lowest prices of the year after the holidays; cold.',1:'Lowest prices of the year; cold, with possible snow.',11:'Holiday season: the busiest and most expensive weeks of the year.'},
+      festivals:[
+        {name:"St. Patrick's Day Parade",where:'Fifth Avenue',fixed:'03-17',len:1,boost:12,price:.05,note:'One of the city\'s largest parades.'},
+        {name:'NYC Pride March',where:'Manhattan',nth:[6,0,-1],len:1,boost:15,price:.08,note:'Last Sunday of June.'},
+        {name:'Fourth of July fireworks',where:'East River / citywide',fixed:'07-04',len:1,boost:15,price:.08,note:'Macy\'s fireworks.'},
+        {name:'US Open tennis',where:'Queens',range:['08-24','09-13'],boost:6,price:.05,approx:true,note:'Two weeks spanning late August and early September.'},
+        {name:'UN General Assembly week',where:'Midtown East',range:['09-21','09-27'],boost:10,price:.25,approx:true,note:'Road closures, and Midtown hotel rates spike.'},
+        {name:'NYC Marathon',where:'All five boroughs',nth:[11,0,1],offset:-2,len:3,boost:14,price:.15,note:'First Sunday of November; hotels fill the whole weekend.'},
+        {name:"Macy's Thanksgiving Day Parade",where:'Central Park West to Herald Square',fromHoliday:'Thanksgiving',offset:0,len:1,boost:18,price:.1,note:'Thanksgiving morning.'},
+        {name:'Rockefeller Center tree lighting',where:'Rockefeller Center',fromHoliday:'Thanksgiving',offset:6,len:1,boost:12,price:.05,approx:true,note:'Usually the Wednesday after Thanksgiving.'},
+        {name:'Holiday season',where:'Midtown and citywide',range:['12-18','12-30'],boost:12,price:.2,note:'Window displays, markets and peak holiday travel.'},
+        {name:"New Year's Eve in Times Square",where:'Times Square',fixed:'12-31',len:1,boost:25,price:.35,note:'Peak hotel prices; Midtown is closed off.'}]}
   };
-  const $=id=>document.getElementById(id),iso=d=>d.toISOString().slice(0,10);
-  function toDate(s){return new Date(s+'T12:00:00Z')}
-  function shift(date,days){const d=toDate(date);d.setUTCDate(d.getUTCDate()+days);return iso(d)}
-  function fmt(s){return toDate(s).toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:'UTC'})}
-  function money(n){return '$'+Math.round(n).toLocaleString('en-US')}
-  function overlaps(a,b,x,y){return a<=y&&x<=b}
-  // ---- Live NYC events: NYC Open Data (Socrata SODA API), dataset tvpp-9vvx ----
-  // Public, keyless endpoint (rate-limited). No credentials live in this page.
-  const NYC_API='https://data.cityofnewyork.us/resource/tvpp-9vvx.json';
-  const NYC_DATASET='https://data.cityofnewyork.us/d/tvpp-9vvx';
-  const SPORTS=new Set(['Sport - Youth','Sport - Adult']);
-  const NOTABLE_TYPES=new Set(['Parade','Street Event','Athletic Race / Tour','Block Party','Plaza Event','Open Street Partner Event']);
-  const UPLIFT_PER_EVENT=.012,UPLIFT_CAP=.35;
-  let live={key:null,status:'idle',rows:[],byDay:new Map(),error:''};
-  let view={borough:'All',sports:false,shown:9};
-  let reqId=0;
-  const TODAY=(()=>{const n=new Date(),p=v=>String(v).padStart(2,"0");return `${n.getFullYear()}-${p(n.getMonth()+1)}-${p(n.getDate())}`})();
+  const NOTABLE="street_closure_type != 'N/A' OR event_type in('Parade','Street Event','Athletic Race / Tour','Block Party','Plaza Event','Open Street Partner Event')";
+  const WEIGHTS={balanced:{c:.35,p:.4,w:.25,f:0},cost:{c:.2,p:.65,w:.15,f:0},crowds:{c:.6,p:.25,w:.15,f:0},festivals:{c:.1,p:.3,w:.2,f:.4}};
+  const LEVELS=[{max:35,k:'q',label:'Quiet'},{max:55,k:'m',label:'Moderate'},{max:75,k:'b',label:'Busy'},{max:101,k:'v',label:'Very busy'}];
 
-  function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-  function clean(v){return String(v||'').replace(/\s+/g,' ').replace(/[\s,]+$/,'').trim()}
-  function closureOf(r){const c=clean(r.street_closure_type);return c&&c!=='N/A'?c:''}
-  function isNotable(r){return !!closureOf(r)||NOTABLE_TYPES.has(r.event_type)}
-  function place(v){const parts=[...new Set(String(v||'').split(',').map(p=>clean(p)).filter(Boolean))].join(', ');return parts.length>110?parts.slice(0,107)+'…':parts}
-  function clock(t){let [h,m]=t.split(':').map(Number);const ap=h>=12?'PM':'AM';h=h%12||12;return h+(m?':'+String(m).padStart(2,'0'):'')+' '+ap}
-  function when(e){const a=e.start.slice(0,10),b=e.end.slice(0,10),ta=e.start.slice(11,16),tb=e.end.slice(11,16);
-    let s=a===b?fmt(a):`${fmt(a)} – ${fmt(b)}`;
-    if(a===b&&ta&&tb)s+=(ta==='00:00'&&tb==='23:59')?' · All day':` · ${clock(ta)}–${clock(tb)}`;
-    if(e.dates>1)s+=` · ${e.dates} dates`;return s}
+  // ---------- Helpers ----------
+  const $=id=>document.getElementById(id);
+  const pad=n=>String(n).padStart(2,'0');
+  const iso=d=>d.toISOString().slice(0,10);
+  const toDate=s=>new Date(s+'T12:00:00Z');
+  const shift=(s,n)=>{const d=toDate(s);d.setUTCDate(d.getUTCDate()+n);return iso(d)};
+  const dow=s=>toDate(s).getUTCDay();
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  const fmt=(s,o={month:'short',day:'numeric'})=>toDate(s).toLocaleDateString('en-US',{...o,timeZone:'UTC'});
+  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const level=c=>LEVELS.find(l=>c<l.max);
+  const pct=v=>(v>=0?'+':'−')+Math.abs(Math.round(v*100))+'%';
+  const avg=a=>a.length?a.reduce((s,v)=>s+v,0)/a.length:0;
+  const now=new Date(),TODAY=`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+  const track=(ev,props)=>{try{if(window.posthog&&typeof posthog.capture==='function')posthog.capture(ev,props)}catch(e){}};
+  const PERSON='<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="4.5" r="3" fill="currentColor"/><path d="M2.5 15c0-3.2 2.5-5.5 5.5-5.5s5.5 2.3 5.5 5.5z" fill="currentColor"/></svg>';
+  function people(c){const n=clamp(Math.ceil(c/20),1,5);let s='';for(let i=0;i<5;i++)s+=`<span style="opacity:${i<n?1:.22}">${PERSON}</span>`;return `<span class="people">${s}</span>`}
+  function crowdBadge(c,extra=''){const l=level(c);return `<div class="crowd lv-${l.k}">${people(c)}<b>${l.label}</b><small>${extra||'crowd '+Math.round(c)+'/100'}</small></div>`}
 
-  async function fetchWindow(from,to){
-    const params=new URLSearchParams({
-      '$select':'event_id,event_name,event_type,event_borough,event_location,start_date_time,end_date_time,street_closure_type',
-      '$where':`start_date_time < '${to}T00:00:00' AND end_date_time >= '${from}T00:00:00'`,
-      '$order':'start_date_time ASC','$limit':'5000'});
-    const res=await fetch(`${NYC_API}?${params}`,{headers:{Accept:'application/json'}});
-    if(!res.ok)throw new Error(`HTTP ${res.status}`);
-    const rows=await res.json();
-    if(!Array.isArray(rows))throw new Error('Unexpected response');
-    return rows.filter(r=>r&&r.start_date_time&&r.end_date_time);
-  }
-  // Count notable, short (<=3 day) events active on each night, one per event_id.
-  // Month-long installations are background and would otherwise pin every night at the cap.
-  function spanDays(r){return (toDate(r.end_date_time.slice(0,10))-toDate(r.start_date_time.slice(0,10)))/864e5}
-  function buildByDay(rows,from,to){const days=new Map();
-    for(let d=from;d<to;d=shift(d,1)){const ids=new Set();for(const r of rows){if(!isNotable(r)||spanDays(r)>3)continue;if(r.start_date_time.slice(0,10)<=d&&r.end_date_time.slice(0,10)>=d)ids.add(r.event_id)}days.set(d,ids.size)}
-    return days}
-  // Events overlapping the stay, one card per event_id (recurring permits merged).
-  function stayEvents(start,nights){const endEx=shift(start,nights),map=new Map();
-    for(const r of live.rows){if(!(r.start_date_time<`${endEx}T00:00:00`&&r.end_date_time>=`${start}T00:00:00`))continue;
-      const id=r.event_id||r.event_name;const e=map.get(id);
-      if(e){e.dates++;if(r.start_date_time<e.start)e.start=r.start_date_time;if(r.end_date_time>e.end)e.end=r.end_date_time}
-      else map.set(id,{name:clean(r.event_name)||'Unnamed permitted event',type:clean(r.event_type)||'Permitted event',borough:clean(r.event_borough),where:place(r.event_location),closure:closureOf(r),notable:isNotable(r),start:r.start_date_time,end:r.end_date_time,dates:1})}
-    return [...map.values()].sort((a,b)=>(b.notable-a.notable)||a.start.localeCompare(b.start))}
+  // ---------- Data loading (all keyless public APIs) ----------
+  const cache={};
+  async function getJSON(url){const r=await fetch(url,{headers:{Accept:'application/json'}});if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}
+  async function loadHolidays(c,years){const out=[];
+    for(const y of years){const list=await getJSON(`https://date.nager.at/api/v3/PublicHolidays/${y}/${c.cc}`);
+      for(const h of list)if(h.global||(c.region&&(h.counties||[]).includes(c.region)))out.push({date:h.date,name:h.name})}
+    return out}
+  async function loadClimate(c){const y=now.getFullYear()-1;
+    const j=await getJSON(`https://archive-api.open-meteo.com/v1/archive?latitude=${c.lat}&longitude=${c.lon}&start_date=${y-9}-01-01&end_date=${y}-12-31&daily=temperature_2m_max,precipitation_sum&timezone=auto`);
+    const byDay={},t=j.daily.time,tx=j.daily.temperature_2m_max,pr=j.daily.precipitation_sum;
+    for(let i=0;i<t.length;i++){if(tx[i]==null)continue;const doy=dayOfYear(t[i]);for(let k=-3;k<=3;k++){const d=(doy+k+365)%365;(byDay[d]||(byDay[d]={t:[],r:[]})).t.push(tx[i]);byDay[d].r.push((pr[i]||0)>=1?1:0)}}
+    const out={};for(const d in byDay)out[d]={t:avg(byDay[d].t),rain:avg(byDay[d].r)*100};return out}
+  async function loadForecast(c){const j=await getJSON(`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&daily=temperature_2m_max,precipitation_probability_max&forecast_days=16&timezone=auto`);
+    const m=new Map();j.daily.time.forEach((d,i)=>{if(j.daily.temperature_2m_max[i]!=null)m.set(d,{t:j.daily.temperature_2m_max[i],rain:j.daily.precipitation_probability_max[i]??0})});return m}
+  // NYC: notable permits per day. Live dataset for the next month, last year's historical permits (same weekday) beyond that.
+  async function loadPermits(first,last){const m=new Map();
+    const q=(ds,from,to)=>getJSON(`https://data.cityofnewyork.us/resource/${ds}.json?`+new URLSearchParams({'$select':'date_trunc_ymd(start_date_time) as d,count(*) as n','$where':`start_date_time >= '${from}T00:00:00' AND start_date_time < '${to}T00:00:00' AND (${NOTABLE})`,'$group':'d','$limit':'500'}));
+    const liveEnd=shift(TODAY,31);
+    const [hist,live]=await Promise.all([q('bkfu-528j',shift(first,-364),shift(last,-363)),first<liveEnd?q('tvpp-9vvx',first,shift(last,1)):Promise.resolve([])]);
+    for(const r of hist)m.set(shift(r.d.slice(0,10),364),{n:+r.n,src:'last year'});
+    for(const r of live){const d=r.d.slice(0,10);if(d<liveEnd)m.set(d,{n:+r.n,src:'live'})}
+    return m}
+  function dayOfYear(s){const d=toDate(s),start=Date.UTC(d.getUTCFullYear(),0,1,12);let n=Math.round((d-start)/864e5);if(n>=59&&isLeap(d.getUTCFullYear()))n=n===59?58:n-1;return n%365}
+  function isLeap(y){return (y%4===0&&y%100!==0)||y%400===0}
 
-  function eventUplift(city,date){
-    if(city==='new-york'&&live.status==='ok')return Math.min(UPLIFT_CAP,(live.byDay.get(date)||0)*UPLIFT_PER_EVENT);
-    let max=0;for(const e of catalog[city].events){if(date>=e.start&&date<=e.end)max=Math.max(max,e.strength)}return max}
-  function dayFactor(city,date){const event=eventUplift(city,date);const dow=toDate(date).getUTCDay();const weekend=(dow===5||dow===6)?0.13:0;return {event,weekend,factor:1+event+weekend}}
-  function trip(city,date,nights){let factorSum=0,eventMax=0;for(let i=0;i<nights;i++){const f=dayFactor(city,shift(date,i));factorSum+=f.factor;eventMax=Math.max(eventMax,f.event)}return {avgFactor:factorSum/nights,eventMax}}
-  function nightly(base,factor){return Math.round(base*factor)}
-  function tripCost(base,city,date,nights){let total=0;for(let i=0;i<nights;i++)total+=nightly(base,dayFactor(city,shift(date,i)).factor);return total}
-  function demandLabel(m){return m>=.3?'Higher event demand':m>0.1?'Moderate event demand':m>0?'Light event demand':'No event uplift'}
+  // ---------- Festivals for a given year ----------
+  function nthWeekday(y,m,wd,n){if(n>0){const d=new Date(Date.UTC(y,m-1,1,12));const diff=(wd-d.getUTCDay()+7)%7;d.setUTCDate(1+diff+7*(n-1));return iso(d)}
+    const d=new Date(Date.UTC(y,m,0,12));const diff=(d.getUTCDay()-wd+7)%7;d.setUTCDate(d.getUTCDate()-diff);return iso(d)}
+  function expandFestivals(c,years,holidays){const out=[];
+    for(const y of years)for(const f of c.festivals){let start,end;
+      if(f.fixed){start=`${y}-${f.fixed}`;end=shift(start,(f.len||1)-1)}
+      else if(f.range){start=`${y}-${f.range[0]}`;end=`${y}-${f.range[1]}`}
+      else if(f.nth){start=shift(nthWeekday(y,...f.nth),f.offset||0);end=shift(start,(f.len||1)-1)}
+      else if(f.fromHoliday){const h=holidays.find(h=>h.date.startsWith(y)&&h.name.includes(f.fromHoliday));if(!h)continue;start=shift(h.date,f.offset||0);end=shift(start,(f.len||1)-1)}
+      out.push({...f,start,end})}
+    return out}
 
-  function sampleEventCards(data,date,end){const events=data.events.filter(e=>overlaps(date,end,e.start,e.end));
-    return events.length?events.map(e=>`<article class="event-card"><div class="type">${esc(e.type)}<span class="source-tag sample">Sample</span></div><h3>${esc(e.name)}</h3><p>${fmt(e.start)} – ${fmt(e.end)}</p><p>${esc(e.venue)}</p><span class="impact">Sample demand uplift: +${Math.round(e.strength*100)}%</span></article>`).join(''):'<div class="empty">No fictional sample events overlap this stay. Regular weekend adjustments may still apply. Try different dates to see how the comparison changes.</div>'}
+  // ---------- Daily model ----------
+  function seasonAt(arr,s){const d=toDate(s),m=d.getUTCMonth(),dim=new Date(Date.UTC(d.getUTCFullYear(),m+1,0)).getUTCDate(),pos=(d.getUTCDate()-.5)/dim-.5,m2=pos>=0?(m+1)%12:(m+11)%12,w=Math.abs(pos);return arr[m]*(1-w)+arr[m2]*w}
+  function comfort(t,rain,ideal){const dist=t<ideal[0]?ideal[0]-t:t>ideal[1]?t-ideal[1]:0;return clamp(100-dist*5-rain*.5,0,100)}
+  function dayInfo(ctx,s){const c=ctx.city;let crowd=seasonAt(c.season,s)*7,price=seasonAt(c.price,s);
+    const wd=dow(s);if(wd===5||wd===6){crowd+=6;price*=1.08}
+    const fests=ctx.festivals.filter(f=>s>=f.start&&s<=f.end);for(const f of fests){crowd+=f.boost;price*=1+f.price}
+    const hols=ctx.holidays.filter(h=>h.date===s);if(hols.length){crowd+=c.hol.crowd;price*=1+c.hol.price}
+    const permit=ctx.permits&&ctx.permits.get(s);if(permit)crowd+=clamp((permit.n-15)*.6,-6,12);
+    const fc=ctx.forecast&&ctx.forecast.get(s),cl=ctx.climate&&ctx.climate[dayOfYear(s)];
+    const w=fc?{t:fc.t,rain:fc.rain,src:'forecast'}:cl?{t:cl.t,rain:cl.rain,src:'10-yr avg'}:null;
+    return {date:s,crowd:clamp(crowd,0,100),price,fests,hols,permit,w,comfort:w?comfort(w.t,w.rain,c.ideal):60}}
+  function stay(ctx,start,nights){const days=[];for(let i=0;i<nights;i++)days.push(dayInfo(ctx,shift(start,i)));
+    const fests=[...new Map(days.flatMap(d=>d.fests).map(f=>[f.name,f])).values()],hols=[...new Map(days.flatMap(d=>d.hols).map(h=>[h.name+h.date,h])).values()];
+    const ws=days.filter(d=>d.w);
+    return {start,end:shift(start,nights),nights,days,crowd:avg(days.map(d=>d.crowd)),price:avg(days.map(d=>d.price)),comfort:avg(days.map(d=>d.comfort)),
+      t:ws.length?avg(ws.map(d=>d.w.t)):null,rain:ws.length?avg(ws.map(d=>d.w.rain)):null,wsrc:ws.some(d=>d.w.src==='forecast')?'forecast':'10-yr avg',fests,hols,
+      permits:days.some(d=>d.permit)?{n:days.reduce((s,d)=>s+(d.permit?d.permit.n:0),0),src:days.some(d=>d.permit&&d.permit.src==='live')?'live':'last year'}:null}}
 
-  function renderLiveEvents(date,nights,t){
-    const all=stayEvents(date,nights),pool=view.sports?all:all.filter(e=>!SPORTS.has(e.type));
-    const sportsCount=all.length-all.filter(e=>!SPORTS.has(e.type)).length;
-    const boroughs={};for(const e of pool)if(e.borough)boroughs[e.borough]=(boroughs[e.borough]||0)+1;
-    const ranked=Object.entries(boroughs).sort((a,b)=>b[1]-a[1]);
-    if(view.borough!=='All'&&!boroughs[view.borough])view.borough='All';
-    const list=view.borough==='All'?pool:pool.filter(e=>e.borough===view.borough);
-    const closures=pool.filter(e=>e.closure).length;
-    const bar=$('liveBar');bar.hidden=false;
-    bar.innerHTML=`<div class="live-head"><span><span class="live-dot"></span><strong>Live from NYC Open Data</strong> · approved event permits for your stay</span><a href="${NYC_DATASET}" target="_blank" rel="noopener">Dataset source ↗</a></div>
-      <div class="stats"><div class="stat"><b>${pool.length}</b><span>permitted events overlap your stay</span></div><div class="stat"><b>${closures}</b><span>with street or sidewalk closures</span></div><div class="stat"><b>${ranked.length?esc(ranked[0][0]):'—'}</b><span>busiest borough${ranked.length?` · ${ranked[0][1]} events`:''}</span></div></div>
-      <div class="chips"><button type="button" class="chip${view.borough==='All'?' active':''}" data-borough="All">All · ${pool.length}</button>${ranked.map(([b,n])=>`<button type="button" class="chip${view.borough===b?' active':''}" data-borough="${esc(b)}">${esc(b)} · ${n}</button>`).join('')}<label class="toggle"><input type="checkbox" id="sportsToggle"${view.sports?' checked':''}> Include sports field permits (${sportsCount})</label></div>`;
-    $('demandPill').textContent=`${pool.length} live events · ${demandLabel(t.eventMax)}`;
-    if(!list.length){$('events').innerHTML='<div class="empty">No permitted events are listed for these dates in NYC Open Data. The dataset covers approved permits for roughly the next month, so try a nearer date.</div>';$('moreRow').hidden=true;return}
-    $('events').innerHTML=list.slice(0,view.shown).map(e=>`<article class="event-card live"><div class="type">${esc(e.type)}<span class="source-tag">Live</span></div><h3>${esc(e.name)}</h3><p>${esc(when(e))}</p><p class="where">${esc([e.borough,e.where].filter(Boolean).join(' · '))}</p>${e.closure?`<span class="impact">${esc(e.closure)}</span>`:e.notable?'<span class="impact">Large public event</span>':'<span class="impact low">No street closure</span>'}</article>`).join('');
-    const rest=list.length-view.shown;$('moreRow').hidden=rest<=0;if(rest>0)$('moreBtn').textContent=`Show ${Math.min(rest,9)} more of ${rest} remaining`;
-  }
+  // ---------- State ----------
+  let ctx=null,pick=null,runId=0;
+  const months=[];for(let i=0;i<12;i++){const d=new Date(Date.UTC(now.getFullYear(),now.getMonth()+i,1,12));months.push(iso(d).slice(0,7))}
+  $('month').innerHTML=months.map(m=>`<option value="${m}">${fmt(m+'-01',{month:'short',year:'numeric'})}</option>`).join('');
+  $('month').value=months[1];
+  const legend=LEVELS.map(l=>`<span><i class="sw lv-${l.k}"></i>${l.label}</span>`).join('')+'<span><i class="dot"></i>Festival</span><span><i class="dot h"></i>Holiday</span>';
+  $('legend1').innerHTML=LEVELS.map(l=>`<span><i class="sw lv-${l.k}"></i>${l.label}</span>`).join('');$('legend2').innerHTML=legend;
 
-  function render(){const city=$('city').value,date=$('checkin').value,nights=Number($('nights').value);if(!date||!/^\d{4}-\d{2}-\d{2}$/.test(date))return;const data=catalog[city],end=shift(date,nights-1);
-    const nyc=city==='new-york',liveOk=nyc&&live.status==='ok';
-    $('eventSub').textContent=`${data.name} · ${fmt(date)}–${fmt(end)} · ${nights} night${nights>1?'s':''}`;
-    $('liveBar').hidden=true;$('moreRow').hidden=true;
-    if(nyc&&live.status==='loading'){const sk='<div class="skel"></div>'.repeat(3);$('demandPill').textContent='Loading live NYC events…';$('events').innerHTML=sk;$('hotels').innerHTML=sk;$('alternatives').innerHTML='<div class="skel" style="min-height:80px"></div>'.repeat(3);return}
-    const t=trip(city,date,nights);
-    if(liveOk)renderLiveEvents(date,nights,t);
-    else{$('demandPill').textContent=`${demandLabel(t.eventMax)} (sample)`;
-      $('events').innerHTML=(nyc&&live.status==='error'?`<div class="empty warn">Live NYC Open Data could not be reached (${esc(live.error)}). Showing fictional sample events instead. Retry by pressing Compare stays.</div>`:'')+sampleEventCards(data,date,end)}
-    $('hotelSub').textContent=`${data.name} · ${nights}-night total shown before taxes and fees${liveOk?' · event factor from live NYC permits':''}`;
-    $('hotels').innerHTML=data.hotels.map(h=>{const total=tripCost(h.base,city,date,nights),avg=Math.round(total/nights),difference=Math.round((t.avgFactor-1)*100);return `<article class="hotel-card"><div class="hotel-art ${h.style}"><span>${h.tag}</span></div><div class="hotel-body"><h3>${h.name}</h3><p class="desc">${h.area}</p><div class="price-row"><div><div class="price">${money(avg)}<small> / night</small></div></div><div class="versus">Sample base ${money(h.base)}<br><strong>${difference>0?'+'+difference+'%':'No uplift'} scenario</strong></div></div><div class="fullcost">${nights}-night room total: <strong>${money(total)}</strong></div></div></article>`}).join('');
-    const base=data.hotels[0].base,here=tripCost(base,city,date,nights),offsets=[-7,-3,3,7,10,14];const options=offsets.map(k=>{const d=shift(date,k),cost=tripCost(base,city,d,nights);return {d,k,cost,savings:here-cost}}).filter(o=>o.d>=TODAY).sort((a,b)=>a.cost-b.cost).slice(0,3);
-    $('alternatives').innerHTML=options.map(o=>`<button type="button" class="alt" data-date="${o.d}" aria-label="Choose ${fmt(o.d)}"><span class="d">${fmt(o.d)} · ${o.k>0?'+':''}${o.k} days</span><span class="s">${o.savings>0?'Save up to '+money(o.savings):o.savings===0?'Same estimate':'About '+money(-o.savings)+' more'}</span><span class="n">${money(o.cost)} vs ${money(here)} · ${data.hotels[0].name}</span></button>`).join('');
-    document.querySelectorAll('.alt').forEach(btn=>btn.addEventListener('click',()=>{$('checkin').value=btn.dataset.date;update();window.scrollTo({top:0,behavior:'smooth'})}));
-  }
+  function inputs(){return {key:$('city').value,month:$('month').value,nights:+$('nights').value,origin:$('origin').value.trim().toUpperCase(),priority:$('priority').value}}
+  function monthDays(m){const out=[];let d=m+'-01';while(d.startsWith(m)){out.push(d);d=shift(d,1)}return out}
 
-  // Fetch one window covering the stay plus every alternative date (-7 … +14 days).
-  async function update(force){const city=$('city').value,date=$('checkin').value,nights=Number($('nights').value);
-    if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||![1,2,3].includes(nights))return;
-    view.shown=9;
-    if(city==='new-york'){const from=shift(date,-7),to=shift(date,14+nights),key=`${from}|${to}`;
-      if(force||live.key!==key||live.status==='error'){const my=++reqId;view.borough='All';live={key,status:'loading',rows:[],byDay:new Map(),error:''};render();
-        try{const rows=await fetchWindow(from,to);if(my!==reqId)return;live={key,status:'ok',rows,byDay:buildByDay(rows,from,to),error:''};
-          const n=stayEvents(date,nights).length;
-          if(window.posthog&&typeof posthog.capture==='function')posthog.capture('real_events_search_completed',{city:'New York City',results:n,nights,checkin:date});
-        }catch(err){if(my!==reqId)return;live={key,status:'error',rows:[],byDay:new Map(),error:err.message||'network error'};
-          if(window.posthog&&typeof posthog.capture==='function')posthog.capture('real_events_search_failed',{error:live.error})}
-      }
-    }
+  async function run(){const inp=inputs(),c=CITIES[inp.key],my=++runId;pick=null;
+    const years=[...new Set([now.getFullYear(),now.getFullYear()+1])];
+    $('status').className='status';$('status').textContent=`Loading weather, holidays${inp.key==='new-york'?' and NYC permit data':''} for ${c.name}…`;
+    $('recs').innerHTML='<div class="skel"></div>'.repeat(3);
+    const base=cache[inp.key]||(cache[inp.key]={});const problems=[];
+    const need=[];
+    if(!base.holidays)need.push(loadHolidays(c,years).then(v=>base.holidays=v).catch(e=>{problems.push('holidays');base.holidaysErr=e}));
+    if(!base.climate)need.push(loadClimate(c).then(v=>base.climate=v).catch(()=>problems.push('weather history')));
+    if(!base.forecast)need.push(loadForecast(c).then(v=>base.forecast=v).catch(()=>problems.push('forecast')));
+    let permits=null;const days=monthDays(inp.month);
+    if(inp.key==='new-york'){const pk='permits'+inp.month;need.push((base[pk]?Promise.resolve(base[pk]):loadPermits(days[0],days[days.length-1]).then(v=>base[pk]=v)).then(v=>permits=v).catch(()=>problems.push('NYC permits')))}
+    await Promise.all(need);if(my!==runId)return;
+    const holidays=base.holidays||[];
+    ctx={key:inp.key,city:c,inp,holidays,festivals:expandFestivals(c,years,holidays),climate:base.climate,forecast:base.forecast,permits};
+    $('status').className='status'+(problems.length?' warn':'');
+    $('status').textContent=problems.length?`Some live data could not be loaded (${problems.join(', ')}). Results use estimates for those parts.`:`Live data loaded for ${c.full}: weather, public holidays${permits?' and NYC permit counts':''}.`;
     render();
+    track('best_dates_search',{city:c.name,month:inp.month,nights:inp.nights,priority:inp.priority});
   }
 
-  $('liveBar').addEventListener('click',e=>{const b=e.target.closest('[data-borough]');if(!b)return;view.borough=b.dataset.borough;view.shown=9;render()});
-  $('liveBar').addEventListener('change',e=>{if(e.target.id==='sportsToggle'){view.sports=e.target.checked;view.shown=9;render()}});
-  $('moreBtn').addEventListener('click',()=>{view.shown+=9;render()});
-  $('searchForm').addEventListener('submit',e=>{e.preventDefault();update(live.status==='error')});
-  $('checkin').min=TODAY;if(!$('checkin').value)$('checkin').value=shift(TODAY,7);update();
+  function render(){const {city:c,inp}=ctx;
+    // Year strip (baseline model without NYC permits)
+    const yearCtx={...ctx,permits:null};
+    const stats=months.map(m=>{const ds=monthDays(m).map(d=>dayInfo(yearCtx,d));return {m,crowd:avg(ds.map(d=>d.crowd)),price:avg(ds.map(d=>d.price)),t:avg(ds.filter(d=>d.w).map(d=>d.w.t))}});
+    const yearMean=avg(stats.map(s=>s.price));ctx.yearMean=yearMean;
+    $('yearSub').textContent=`${c.full} · average crowd level by month · tap a month to explore it`;
+    $('bars').innerHTML=stats.map(s=>{const l=level(s.crowd);return `<button type="button" class="bar${s.m===inp.month?' sel':''}" data-month="${s.m}" aria-label="${fmt(s.m+'-01',{month:'long'})}: ${l.label}, hotel prices ${pct(s.price/yearMean-1)} vs average"><div class="fill lv-${l.k}" style="height:${Math.max(14,s.crowd)}%">${Math.round(s.crowd)}</div><div class="m">${fmt(s.m+'-01',{month:'short'})}</div><div class="t">${Math.round(s.t)}° · ${pct(s.price/yearMean-1)}</div></button>`}).join('');
+
+    // Candidates in chosen month
+    const days=monthDays(inp.month),cands=days.filter(d=>d>TODAY).map(d=>stay(ctx,d,inp.nights));
+    const w=WEIGHTS[inp.priority],ps=cands.map(s=>s.price),pmin=Math.min(...ps),pmax=Math.max(...ps);
+    for(const s of cands){const pScore=pmax>pmin?100*(pmax-s.price)/(pmax-pmin):70;s.score=Math.round(w.c*(100-s.crowd)+w.p*pScore+w.w*s.comfort+w.f*(s.fests.length?100:0))}
+    const ranked=[...cands].sort((a,b)=>b.score-a.score),top=[];
+    for(const s of ranked){if(top.every(t=>Math.abs(toDate(t.start)-toDate(s.start))/864e5>=3))top.push(s);if(top.length===3)break}
+    ctx.top=top;ctx.monthCrowd=avg(cands.map(s=>s.crowd));ctx.monthMinPrice=pmin;
+    const monthName=fmt(inp.month+'-01',{month:'long',year:'numeric'});
+    $('recSub').textContent=`${c.full} · ${monthName} · ${inp.nights} nights · ranked for “${$('priority').selectedOptions[0].text}”`;
+    $('recs').innerHTML=top.length?top.map((s,i)=>stayCard(s,i)).join(''):'<div class="card rec">No future check-in dates left in this month. Pick a later month.</div>';
+
+    // Calendar
+    const first=dow(days[0]),lead=(first+6)%7;let cells='';for(let i=0;i<lead;i++)cells+='<div class="day blank"></div>';
+    const stayDays=new Set();if(top[0])for(let i=0;i<inp.nights;i++)stayDays.add(shift(top[0].start,i));
+    for(const d of days){const info=dayInfo(ctx,d),l=level(info.crowd),past=d<=TODAY,rk=top.findIndex(t=>t.start===d);
+      const label=`${fmt(d,{weekday:'long',month:'long',day:'numeric'})}: ${l.label}${info.w?`, ${Math.round(info.w.t)}°C`:''}${info.fests.length?', '+info.fests.map(f=>f.name).join(', '):''}${info.hols.length?', '+info.hols.map(h=>h.name).join(', '):''}`;
+      cells+=`<button type="button" class="day ${past?'past':'lv-'+l.k}${stayDays.has(d)?' stay':''}${pick===d?' pick':''}" data-date="${d}" ${past?'disabled':''} aria-label="${esc(label)}" title="${esc(label)}"><span class="n">${+d.slice(8)}</span>${info.w&&!past?`<span class="tt">${Math.round(info.w.t)}°</span>`:''}<span class="dots">${info.fests.length?'<i class="dot"></i>':''}${info.hols.length?'<i class="dot h"></i>':''}</span>${rk>=0&&!past?`<span class="rk">${rk+1}</span>`:''}</button>`}
+    $('cal').innerHTML=cells;
+    $('calSub').textContent=`${monthName} · color = crowd level · green outline = best stay · tap a date to see that stay`;
+    if(pick)showDetail(pick);else $('detail').innerHTML=`<p class="hint">Tap any date in the calendar to see crowd level, weather, events and prices for a ${inp.nights}-night stay starting that day.</p>${c.notes[+inp.month.slice(5)-1]?`<p class="hint"><strong>${esc(monthName)}:</strong> ${esc(c.notes[+inp.month.slice(5)-1])}</p>`:''}`;
+
+    // What's on
+    const mf=ctx.festivals.filter(f=>f.end>=days[0]&&f.start<=days[days.length-1]),mh=holidays().filter(h=>h.date.startsWith(inp.month));
+    const items=[...mf.map(f=>({d:f.start,html:`<div class="d">${f.start===f.end?fmt(f.start):fmt(f.start)+' – '+fmt(f.end)}</div><div><h4>🎉 ${esc(f.name)}${f.approx?'<span class="approx">Typical dates</span>':''}</h4><p>${esc(f.where)} · ${esc(f.note)} · crowd +${f.boost}${f.price?`, hotel prices +${Math.round(f.price*100)}%`:''}</p></div>`})),
+      ...mh.map(h=>({d:h.date,html:`<div class="d">${fmt(h.date,{weekday:'short',month:'short',day:'numeric'})}</div><div><h4>🏛 ${esc(h.name)}<span class="live">Live</span></h4><p>Public holiday${/Lunar New Year|Chuseok/.test(h.name)?' · many shops close, and trains and domestic flights sell out':''}</p></div>`}))].sort((a,b)=>a.d.localeCompare(b.d));
+    if(ctx.permits&&ctx.permits.size){const vals=[...ctx.permits.entries()].filter(([d])=>d.startsWith(inp.month)),tot=vals.reduce((s,[,v])=>s+v.n,0),busiest=vals.sort((a,b)=>b[1].n-a[1].n)[0],live=vals.some(([,v])=>v.src==='live');
+      if(tot)items.push({d:'9999',html:`<div class="d">All month</div><div><h4>🚧 NYC permitted events<span class="live">${live?'Live + last year':'Last year'}</span></h4><p>${tot} permits with street closures or large public formats (NYC Open Data${live?', live for the next month and last year\'s same week after that':', same weeks last year'}). Busiest day: ${fmt(busiest[0],{weekday:'short',month:'short',day:'numeric'})} (${busiest[1].n} permits).</p></div>`})}
+    if(c.notes[+inp.month.slice(5)-1])items.unshift({d:'0',html:`<div class="d">Season note</div><div><h4>ℹ️ ${esc(c.notes[+inp.month.slice(5)-1])}</h4></div>`});
+    $('woSub').textContent=`${c.full} · ${monthName}`;
+    $('whatson').innerHTML=items.length?items.map(i=>`<div class="wo">${i.html}</div>`).join(''):'<div class="wo"><div><h4>No listed festivals or public holidays this month</h4><p>A good sign for quieter travel.</p></div></div>';
+  }
+  function holidays(){return ctx.holidays}
+
+  function why(s){const out=[],l=level(s.crowd),diff=s.crowd-ctx.monthCrowd;
+    out.push(`${l.label} crowds${Math.abs(diff)>=3?` (${diff<0?'quieter':'busier'} than this month's average)`:''}`);
+    const pp=s.price/ctx.yearMean-1;out.push(`Hotel prices ${Math.abs(pp)<.03?'around':pp<0?'about '+Math.round(-pp*100)+'% below':'about '+Math.round(pp*100)+'% above'} the yearly average`);
+    if(s.t!=null)out.push(`Around ${Math.round(s.t)}°C, ${s.wsrc==='forecast'?Math.round(s.rain)+'% max rain chance (forecast)':'rain on '+Math.round(s.rain)+'% of days (10-yr avg)'}`);
+    const monthF=ctx.festivals.filter(f=>f.start.startsWith(ctx.inp.month)||f.end.startsWith(ctx.inp.month));
+    if(s.fests.length)out.push(`Overlaps ${s.fests.map(f=>f.name).join(', ')}`);
+    else if(monthF.length)out.push(`Avoids ${monthF.map(f=>f.name).join(', ')}`);
+    return out}
+  function stayCard(s,i,isPick){const c=ctx.city,inp=ctx.inp,origin=/^[A-Z]{3}$/.test(inp.origin)?inp.origin:null;
+    const book=`https://www.booking.com/searchresults.html?${new URLSearchParams({ss:c.booking,checkin:s.start,checkout:s.end,group_adults:'2',no_rooms:'1'})}`;
+    const fl=origin?`https://www.google.com/travel/flights?${new URLSearchParams({q:`Flights from ${origin} to ${c.airport} on ${s.start} through ${s.end}`})}`:null;
+    const pp=s.price/ctx.yearMean-1;
+    return `<article class="card rec${i===0&&!isPick?' best':''}">${isPick?'':`<span class="score">Score ${s.score}</span>`}
+      <div class="rank">${isPick?'Your selected stay':i===0?'★ Best dates':'Option '+(i+1)}</div>
+      <h3>${fmt(s.start,{weekday:'short',month:'short',day:'numeric'})} – ${fmt(s.end,{weekday:'short',month:'short',day:'numeric'})}</h3><div class="sub">${s.nights} nights · ${esc(c.full)}</div>
+      ${crowdBadge(s.crowd)}
+      <div class="facts"><div class="fact"><span>Hotel price level</span><b>${pct(pp)}</b> <span class="src">vs 12-month avg (estimate)</span></div><div class="fact"><span>Weather</span><b>${s.t!=null?Math.round(s.t)+'°C · '+Math.round(s.rain)+'% rain':'—'}</b> <span class="src">${s.wsrc}</span></div></div>
+      ${s.fests.length||s.hols.length?`<div class="chips">${s.fests.map(f=>`<span class="chip">🎉 ${esc(f.name)}</span>`).join('')}${s.hols.map(h=>`<span class="chip hol">🏛 ${esc(h.name)}</span>`).join('')}</div>`:''}
+      <ul class="why">${why(s).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+      <div class="links"><a class="link" href="${esc(book)}" target="_blank" rel="noopener" data-out="hotels">Hotel prices ↗</a>${fl?`<a class="link fl" href="${esc(fl)}" target="_blank" rel="noopener" data-out="flights">Flights from ${esc(origin)} ↗</a>`:'<span class="hint">Enter a 3-letter airport code to compare flights.</span>'}</div>
+      <p class="hint" style="font-size:11px">${esc(c.flightNote)}</p></article>`}
+  function showDetail(d){pick=d;document.querySelectorAll('.day.pick').forEach(e=>e.classList.remove('pick'));const el=document.querySelector(`.day[data-date="${d}"]`);if(el)el.classList.add('pick');
+    const s=stay(ctx,d,ctx.inp.nights);$('detail').innerHTML=stayCard(s,0,true).replace('<article class="card rec','<article class="rec').replace(/^/,'');}
+
+  // ---------- Events ----------
+  $('form').addEventListener('submit',e=>{e.preventDefault();run()});
+  ['city','month','nights','priority'].forEach(id=>$(id).addEventListener('change',run));
+  $('origin').addEventListener('change',()=>{if(ctx){ctx.inp=inputs();render()}});
+  $('bars').addEventListener('click',e=>{const b=e.target.closest('[data-month]');if(!b)return;$('month').value=b.dataset.month;run()});
+  $('cal').addEventListener('click',e=>{const b=e.target.closest('.day[data-date]');if(!b||b.disabled)return;showDetail(b.dataset.date);if(innerWidth<980)$('detail').scrollIntoView({behavior:'smooth',block:'nearest'})});
+  document.addEventListener('click',e=>{const a=e.target.closest('a[data-out]');if(a&&ctx)track('outbound_click',{type:a.dataset.out,city:ctx.city.name})});
+  run();
   </script>
 </body>
 </html>
