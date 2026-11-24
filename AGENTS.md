@@ -51,6 +51,16 @@ Compare illustrative hotel prices → Explore alternative dates.
 7. Save and wait for deployment.
 8. Visit the public URL and test the application.
 
+## NYC Open Data API
+
+- Endpoint: https://data.cityofnewyork.us/resource/tvpp-9vvx.json (NYC Permitted Event Information, Socrata SODA API).
+- Docs: https://dev.socrata.com/foundry/data.cityofnewyork.us/tvpp-9vvx
+- Called from the browser in docs/prototype/index.html with no API key (basic calls are rate-limited).
+- One request per search fetches a window from check-in −7 days to +14 days, which covers the stay and the alternative dates.
+- New York event cards are live. The NYC hotel event factor is derived from live counts of short events (3 days or less) with street closures or large public formats: +1.2% per event per night, capped at +35%. Hotel prices stay illustrative.
+- If the API fails, the page falls back to the sample events and says so.
+- Serve over http (for example `python3 -m http.server` in docs/) rather than opening the file directly.
+
 ## Engineering Rules
 
 - Never expose API keys or private credentials.
